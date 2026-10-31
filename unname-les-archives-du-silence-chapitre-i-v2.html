@@ -1,0 +1,697 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unname — Les Archives du Silence</title>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#070c14;--panel:#0f1929;--panel2:#0c1522;--line:#2b3f56;--line2:#3a5270;--mint:#9ce6c8;--red:#d45b68;--txt:#edf4fa;--dim:#a8bad0}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;color:var(--txt);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1200px 700px at 50% -10%,#132038 0%,#0a1220 45%,#060a11 100%)}
+main{width:min(1120px,100%)}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+h1{font-size:clamp(19px,3.6vw,28px);margin:0;letter-spacing:.06em;font-weight:800}
+h1 span{color:var(--mint);text-shadow:0 0 18px #9ce6c855}
+header p{color:var(--dim);margin:4px 0 14px;font-size:13px;letter-spacing:.03em}
+.layout{display:grid;grid-template-columns:1fr 280px;gap:14px}
+.screen{background:linear-gradient(160deg,#152236,#0d1626);border:1px solid var(--line2);border-radius:16px;padding:10px;box-shadow:0 24px 60px #00000080,inset 0 1px 0 #ffffff12}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:10px;background:#0a0f18}
+.panel{background:linear-gradient(165deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 12px 30px #00000059,inset 0 1px 0 #ffffff0d}
+.panel h2{font-size:11px;color:var(--mint);letter-spacing:.22em;text-transform:uppercase;margin:0 0 9px;font-weight:700}
+p{line-height:1.5;margin:6px 0}
+.muted{color:var(--dim);font-size:12.5px}
+.key{display:inline-block;border:1px solid var(--line2);border-bottom-width:3px;border-radius:7px;padding:3px 8px;margin:3px;background:linear-gradient(180deg,#1d2c42,#16243a);font-size:12px;color:#d9e6f2}
+.bar{height:7px;background:#0a1524;border:1px solid var(--line);border-radius:9px;margin:10px 0;overflow:hidden}
+.bar i{display:block;height:100%;width:0%;border-radius:9px;background:linear-gradient(90deg,#4fae93,var(--mint));box-shadow:0 0 12px #9ce6c877;transition:width .4s}
+button{background:linear-gradient(180deg,#21395a,#182c46);color:#eaf6f0;border:1px solid var(--line2);border-radius:9px;padding:8px 12px;margin:3px;cursor:pointer;font-size:13.5px;transition:transform .12s,box-shadow .2s,filter .2s}
+button:hover{filter:brightness(1.25);box-shadow:0 0 14px #9ce6c833;transform:translateY(-1px)}
+button:active{transform:translateY(1px)}
+ul{margin:6px 0;padding-left:18px}
+#dlg{display:none;position:fixed;inset:0;background:#02050cd9;align-items:end;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+#dlg.show{display:flex}
+.box{width:min(820px,100%);background:linear-gradient(170deg,#101d2f,#0b1524);border:1.5px solid var(--mint);border-radius:16px;padding:20px 22px;box-shadow:0 0 0 5px #000a,0 0 40px #9ce6c81c;animation:pop .18s ease-out}
+@keyframes pop{from{transform:translateY(14px);opacity:0}}
+.who{color:var(--mint);font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.words{font-size:17px;line-height:1.55;white-space:pre-line;margin:10px 0}
+.hint{text-align:right;color:#8ba0b8;font-size:12px;animation:blink 1.6s infinite}
+#touch{display:none;grid-template-columns:repeat(3,52px);gap:5px;justify-content:center;margin-top:10px}
+#touch button{font-size:17px;padding:12px 0}
+.ov{position:fixed;inset:0;background:#04060cf0;display:flex;align-items:center;justify-content:center;z-index:11;padding:18px;backdrop-filter:blur(3px)}
+.hide{display:none!important}
+.nameBox,.kpBox{width:min(480px,94%);background:linear-gradient(165deg,#101d2f,#0a1322);border:1.5px solid var(--mint);border-radius:16px;padding:26px;text-align:center;box-shadow:0 0 50px #9ce6c81c,0 30px 60px #000a}
+.nameBox h2{margin:0 0 8px;color:var(--mint);letter-spacing:.14em;font-size:15px}
+.nameBox p{color:var(--dim);font-size:13px}
+.story{color:#d5e2ee;font-size:14px;line-height:1.65;text-align:left;margin:12px 0}
+.story b{color:var(--mint)}
+.story .warn{color:#e8b4bc}
+.nameBox input{width:100%;padding:11px;margin:12px 0;background:#0b1420;border:1px solid var(--line2);border-radius:9px;color:#edf4fa;font-size:17px;text-align:center;outline:none;transition:box-shadow .2s}
+.nameBox input:focus{box-shadow:0 0 0 3px #9ce6c844}
+.nameBox button,#preludeOv .nameBox button{width:100%;font-size:15px;padding:12px}
+.kpTitle{color:var(--mint);font-weight:800;letter-spacing:.08em;font-size:14px}
+.kpHint{color:var(--dim);font-size:12px;margin:6px 0}
+.kpDisp{font:26px monospace;letter-spacing:.4em;background:#0b1420;border:1px solid var(--line2);border-radius:9px;padding:8px;margin:10px 0;color:#eaf6d8}
+.kpGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kpGrid button{font-size:18px;padding:12px 0;margin:0}
+.kpErr{color:var(--red);font-size:12px;min-height:16px;margin-top:6px}
+.kpCancel{width:100%;margin-top:4px}
+.endBox{width:min(680px,96%);text-align:center;background:linear-gradient(170deg,#0a0d16,#05070c);border:2.5px solid var(--red);border-radius:16px;padding:36px 24px;box-shadow:0 0 70px #bb53684d}
+.liveBadge{display:inline-block;background:var(--red);color:#fff;font-weight:800;border-radius:7px;padding:6px 16px;letter-spacing:.2em;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.5}}
+.endBox h2{font-size:clamp(22px,5vw,34px);margin:16px 0 6px;color:#fff;letter-spacing:.04em}
+.endBox .sub{color:#e8b4bc;font-size:18px;margin:4px 0}
+.endBox p{color:#b6c6d8;font-size:15px;line-height:1.65}
+.endBox button{margin-top:16px;font-size:15px;padding:12px 26px;border-color:var(--red);background:linear-gradient(180deg,#4a2230,#331821)}
+.viewers{font:14px monospace;color:var(--mint);margin:10px 0}
+@media(max-width:780px){.layout{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+@media(max-width:520px){aside{display:block}#touch{display:grid}body{align-items:flex-start}}
+</style></head><body><main><header><div><h1>UNNAME — <span style="color:#9ce6c8">LES ARCHIVES DU SILENCE</span></h1><p>Enquête horrifique 2D • Manoir de Valombre • Chapitre I : Le direct fantôme</p></div></header>
+<div class="layout"><div><div class="screen"><canvas id="game" width="800" height="512"></canvas></div><div id="touch"><button data-k="ArrowUp" style="grid-column:2">▲</button><button data-k="ArrowLeft">◀</button><button data-k="ArrowDown">▼</button><button data-k="ArrowRight">▶</button><button id="tactE" style="grid-column:1/4">E — AGIR</button></div><section class="panel" style="margin-top:10px"><h2>Commandes</h2><span class="key">Flèches / ZQSD / WASD</span><span class="key">E / Entrée : agir</span><span class="key">J : journal</span><span class="key">Manette : stick / croix, A = agir, Start = journal</span><p class="muted">Explore librement, reviens fouiller les salles après chaque découverte : les invités se souviennent de nouvelles choses. Sauvegarde automatique sur cet appareil.</p></section></div>
+<aside><section class="panel"><h2>Objectif</h2><p id="goal">Parle à Unname et commence les recherches.</p><p class="muted" id="loc">Lieu : Hall</p><div class="bar"><i id="bar"></i></div><p class="muted" id="count">0 / 7 indices</p></section><section class="panel"><h2>Journal d'enquête</h2><ul id="clues" class="muted"><li>Aucun indice trouvé.</li></ul><button id="journal">Lire le journal (J)</button><button id="reset">Nouvelle partie</button></section><section class="panel"><h2>Les invités</h2><ul class="muted"><li>Unname — maître du jeu</li><li>tom_hagane, simon_shinji, kataneo21</li><li>eltise, S4tha, unfamiliary</li><li>Drunkman et lapetitebeaute</li><li>Le Régisseur — présence cachée</li></ul></section><section class="panel"><h2>Inventaire</h2><p id="inventory" class="muted">Vide</p></section></div></main>
+<div id="dlg"><div class="box"><div class="who" id="who"></div><div class="words" id="words"></div><div class="hint">E / Entrée / Espace pour continuer</div></div></div>
+<div id="keypad" class="ov hide"><div class="kpBox"><div class="kpTitle" id="kpTitle"></div><div class="kpHint" id="kpHint"></div><div class="kpDisp" id="kpDisp">_ _ _ _</div><div class="kpGrid" id="kpGrid"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button id="kpC">C</button><button>0</button><button id="kpOK">OK</button></div><div class="kpErr" id="kpErr"></div><button class="kpCancel" id="kpX">Annuler</button></div></div>
+<div id="nameOv"><div class="nameBox"><h2>MANOIR DE VALOMBRE &mdash; 23 H 04</h2><div class="story">
+Bienvenue. Tu arrives au manoir de Valombre, &agrave; l&rsquo;invitation d&rsquo;<b>Unname</b> pour un stream un peu sp&eacute;cial : <b>une rencontre IRL avec les habitu&eacute;s du canal</b>, en direct depuis un vieux manoir.<br><br>
+Mais &agrave; ton arriv&eacute;e, rien ne se passe comme pr&eacute;vu. <span class="warn">Le personnel a disparu, les cam&eacute;ras sont d&eacute;branch&eacute;es&hellip; et &agrave; 23 h 17, un direct s&rsquo;est lanc&eacute; tout seul, depuis une cha&icirc;ne qui n&rsquo;existe plus.</span><br><br>
+Signe le registre des invit&eacute;s. <b>Le manoir se souvient de ceux qui inscrivent leur nom.</b>
+</div><input id="pname" maxlength="14" placeholder="Ton nom" autocomplete="off"><button id="startBtn">Entrer dans le manoir</button></div></div>
+<div id="endOv" class="ov hide">
+  <div class="endBox" id="endS1">
+    <span class="liveBadge">EN DIRECT</span>
+    <h2>BIENVENUE SUR LE LIVE D&rsquo;UNNAME</h2>
+    <div class="sub" id="liveName"></div>
+    <div class="viewers">SPECTATEURS : 10 &bull; 00:00 &rarr; le compteur remonte</div>
+    <p>La cam&eacute;ra que personne n&rsquo;a branch&eacute;e te montre la salle. Tu es dans le cadre.<br>Le direct n&rsquo;avait pas besoin d&rsquo;un dernier regard : il l&rsquo;avait depuis ton arriv&eacute;e.</p>
+    <button id="toEnd">Voir la conclusion</button>
+  </div>
+  <div class="endBox hide" id="endS2">
+    <h2>FIN DU CHAPITRE I</h2>
+    <p id="endRecap"></p>
+    <p>Le dixi&egrave;me cadre de la galerie n&rsquo;a jamais &eacute;t&eacute; vide : il attendait un nom.<br><b>Tu n&rsquo;&eacute;tais pas venu enqu&ecirc;ter sur le dixi&egrave;me invit&eacute;. Tu &eacute;tais le dixi&egrave;me invit&eacute;.</b></p>
+    <p class="muted">Chapitre II : le direct, lui, n&rsquo;a jamais &eacute;t&eacute; coup&eacute;&hellip;</p>
+    <button id="replay">REJOUER UNE NOUVELLE PARTIE</button>
+  </div>
+</div>
+<script>
+(()=>{
+const c=document.getElementById('game'),x=c.getContext('2d');x.imageSmoothingEnabled=false;
+const S=32,C=25,R=16,K={};
+let room='hall',dialog=null,di=0,frame=0,ready=false,padPrevA=false,padPrevStart=false,movingNow=false;
+const pl={x:12*S+16,y:12*S+16};
+let clues=new Set(),seen=new Set(),items=new Set();
+let flags={studio:false,final:false,studioSeen:false,chestOpen:false};
+let heroName='';
+const guests=['tom_hagane','simon_shinji','kataneo21','eltise','S4tha','unfamiliary','Drunkman','lapetitebeaute'];
+const evidence={ticket:'Ticket de régie',photo:'Photographie déchirée',tape:'Cassette TEST 0',symbol:'Symbole inversé',plan:'Plan des conduits',log:'Journal de maintenance',voice:'Transcription audio'};
+const itemsDb={key_vitrine:'Clé de la vitrine',fusible:'Fusible de relais'};
+const chestPos={a:20,b:12};
+
+const maps={
+hall:{name:'Hall du manoir',floor:'#293b36',wall:'#172522',items:[['ticket',5,10],['photo',19,5]],npcs:[['Unname',12,7,'#c8b18b','host'],[guests[0],7,8,'#d59b65'],[guests[1],17,9,'#91b6d6']],doors:[['gallery',12,1,12,13,'Galerie']]},
+gallery:{name:'Galerie des portraits',floor:'#3c2b2c',wall:'#24191f',items:[['tape',8,5],['symbol',12,10]],npcs:[[guests[2],7,10,'#bda0dc'],[guests[3],17,5,'#d78e8e']],doors:[['hall',12,14,12,2,'Hall'],['library',1,8,22,8,'Bibliothèque']]},
+library:{name:'Bibliothèque',floor:'#3b3028',wall:'#211a1a',items:[['plan',12,5],['log',5,11]],npcs:[[guests[4],11,7,'#b7c48b'],[guests[5],16,11,'#d2aa85']],doors:[['gallery',23,8,2,8,'Galerie'],['studio',12,14,12,2,'Studio interdit']]},
+studio:{name:'Studio de diffusion',floor:'#252e3c',wall:'#141c2a',items:[['voice',19,5],['key_vitrine',4,11]],npcs:[[guests[6],7,10,'#e1a6b7'],[guests[7],17,10,'#a4c5c0']],doors:[['library',12,1,12,13,'Bibliothèque'],['cellar',23,8,2,8,'Escalier de service']]},
+cellar:{name:'Sous-sol',floor:'#292738',wall:'#171522',items:[],npcs:[['Le Régisseur',12,6,'#e5edf6','ghost']],doors:[['studio',1,8,22,8,'Studio']]}
+};
+
+function wall(a,b){
+  if(a<1||b<1||a>=24||b>=15)return true;
+  let edge=(b===1||b===14||a===1||a===23);
+  if(edge){let open=maps[room].doors.some(d=>Math.hypot(a-d[1],b-d[2])<1.5);if(!open)return true;}
+  if(room==='hall'&&((a>=3&&a<=7&&b>=3&&b<=4)||(a>=17&&a<=21&&b>=3&&b<=4)))return true;
+  if(room==='gallery'&&((a>=3&&a<=5&&b>=3&&b<=7)||(a>=19&&a<=21&&b>=3&&b<=11)))return true;
+  if(room==='library'&&((a>=2&&a<=4&&b>=2&&b<=12)||(a>=11&&a<=13&&b>=2&&b<=4)))return true;
+  if(room==='studio'&&((a>=3&&a<=6&&b>=3&&b<=5)||(a>=18&&a<=21&&b>=3&&b<=5)))return true;
+  if(room==='cellar'&&((a>=4&&a<=8&&b>=3&&b<=5)||(a>=17&&a<=21&&b>=9&&b<=11)))return true;
+  return false;
+}
+
+function resetKeys(){for(const k in K)K[k]=false;}
+window.addEventListener('blur',resetKeys);
+
+function glow(px,py,r,col,a){
+  const g=x.createRadialGradient(px,py,2,px,py,r);
+  g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');
+  x.save();x.globalAlpha=a;x.fillStyle=g;x.fillRect(px-r,py-r,r*2,r*2);x.restore();
+}
+function person(px,py,col,ghost=false,label){
+  const hash=[...String(label||'x')].reduce((a,c)=>a+c.charCodeAt(0),0);
+  const hair=ghost?'#cfe0f4':['#5b3a24','#2c2f3a','#7a4b22','#1d2430','#4a3060','#8a6b3a','#33302b','#66513f'][hash%8];
+  const isHero=label===heroName;
+  const bob=isHero&&movingNow?Math.abs(Math.sin(frame/4))*2:Math.sin(frame/40+hash)*1;
+  const yy=py-bob;
+  // ombre au sol
+  x.fillStyle='rgba(0,0,0,.38)';x.beginPath();x.ellipse(px,py+13,11,4,0,0,Math.PI*2);x.fill();
+  if(ghost){
+    const fl=Math.sin(frame/18)*3;
+    x.save();x.globalAlpha=.88;
+    glow(px,yy-14+fl,24,'#9cb9e1',.35);
+    x.fillStyle='#dce9fb';x.fillRect(px-9,yy-24+fl,18,20);
+    for(let i=0;i<3;i++)x.fillRect(px-8+i*7,yy-4+fl,5,4+(((frame>>4)+i)%3)*3);
+    x.fillRect(px-8,yy-38+fl,16,15);
+    x.fillStyle='#9cb9e1';x.fillRect(px-5,yy-32+fl,3,4);x.fillRect(px+2,yy-32+fl,3,4);
+    x.restore();
+    drawLabel(px,yy-44,ghost,label);return;
+  }
+  // jambes + bottes (2 frames de marche)
+  const wf=isHero&&movingNow?((frame>>3)%2):-1;
+  x.fillStyle='#26303c';
+  if(wf===0){x.fillRect(px-7,yy+2,5,10);x.fillRect(px+2,yy+4,5,8)}
+  else if(wf===1){x.fillRect(px-7,yy+4,5,8);x.fillRect(px+2,yy+2,5,10)}
+  else{x.fillRect(px-7,yy+2,5,10);x.fillRect(px+2,yy+2,5,10)}
+  x.fillStyle='#141a22';x.fillRect(px-8,yy+10,7,4);x.fillRect(px+1,yy+10,7,4);
+  // torse contourn\u00e9, col, reflet
+  x.fillStyle='#10151d';x.fillRect(px-10,yy-16,20,20);
+  x.fillStyle=col;x.fillRect(px-9,yy-15,18,18);
+  x.fillStyle='rgba(255,255,255,.15)';x.fillRect(px-9,yy-15,18,4);
+  x.fillStyle='rgba(0,0,0,.22)';x.fillRect(px-9,yy-1,18,4);
+  x.fillStyle='#e8c6a5';x.fillRect(px-3,yy-15,6,3);
+  // bras
+  x.fillStyle='#10151d';x.fillRect(px-12,yy-14,3,12);x.fillRect(px+9,yy-14,3,12);
+  x.fillStyle=col;x.fillRect(px-11,yy-13,2,10);x.fillRect(px+10,yy-13,2,10);
+  x.fillStyle='#e8c6a5';x.fillRect(px-11,yy-3,2,3);x.fillRect(px+10,yy-3,2,3);
+  // t\u00eate avec contour, cheveux, yeux
+  x.fillStyle='#10151d';x.fillRect(px-8,yy-36,16,20);
+  x.fillStyle='#e8c6a5';x.fillRect(px-7,yy-35,14,18);
+  x.fillStyle=hair;x.fillRect(px-7,yy-35,14,7);x.fillRect(px-8,yy-31,3,9);x.fillRect(px+5,yy-31,3,9);
+  x.fillStyle='#141a22';x.fillRect(px-4,yy-26,3,3);x.fillRect(px+2,yy-26,3,3);
+  drawLabel(px,yy-42,ghost,label);
+}
+function drawLabel(px,py,ghost,label){
+  if(!label)return;
+  x.font='10px monospace';x.textAlign='center';
+  x.fillStyle='#07111dd9';const w=x.measureText(label).width;x.fillRect(px-w/2-5,py-2,w+10,14);
+  x.fillStyle=ghost?'#bcd4f2':'#dfe9f2';x.fillText(label,px,py+9);x.textAlign='left';
+}
+
+function doorLabel(text,a,b){
+  x.font='bold 11px monospace';x.textAlign='center';
+  x.fillStyle='#07111dd0';const w=x.measureText(text).width;x.fillRect(a*S+16-w/2-4,b*S+3,w+8,15);
+  x.fillStyle='#9ce6c8';x.fillText(text,a*S+16,b*S+14);x.textAlign='left';
+}
+
+function detailRect(px,py,w,h,fill,stroke='#080d14'){
+  x.fillStyle=stroke;x.fillRect(px-2,py-2,w+4,h+4);
+  x.fillStyle=fill;x.fillRect(px,py,w,h);
+}
+function drawRoomDetails(){
+  if(room==='hall'){
+    detailRect(8*S,8*S,9*S,2*S,'#76513b','#2b1d1b');
+    x.fillStyle='#c5a477';x.fillRect(8*S+8,8*S+7,9*S-16,3);x.fillRect(8*S+8,10*S-10,9*S-16,3);
+    detailRect(3*S,3*S,4*S,2*S,'#4c3428');detailRect(17*S,3*S,4*S,2*S,'#4c3428');
+    for(let i=0;i<4;i++){x.fillStyle='#c9a36d';x.fillRect((4+i)*S,3*S+7,3,18);x.fillRect((18+i)*S,3*S+7,3,18)}
+    detailRect(10*S,2*S,5*S,2*S,'#3b2b2b');
+    x.fillStyle='#d7bd8c';x.fillRect(12*S+8,2*S+5,16,3);
+    x.fillStyle='#d2b27a';x.fillRect(2*S+8,7*S,4,12);x.fillRect(21*S+18,7*S,4,12);
+    doorLabel('\u2191 Galerie',12,1);
+  }else if(room==='gallery'){
+    detailRect(3*S,3*S,3*S,5*S,'#51383a','#21171d');
+    detailRect(19*S,3*S,3*S,9*S,'#51383a','#21171d');
+    for(let i=0;i<3;i++){x.fillStyle='#c6a477';x.fillRect(3*S+7,3*S+8+i*42,3,29);x.fillStyle=['#8a7770','#a88c79','#756d82'][i];x.fillRect(3*S+13,3*S+13+i*42,20,18);}
+    for(let i=0;i<4;i++){x.fillStyle='#c6a477';x.fillRect(19*S+7,3*S+8+i*65,3,48);x.fillStyle=['#80717b','#9a8172','#667887','#8c7770'][i];x.fillRect(19*S+13,3*S+14+i*65,20,34);x.fillStyle='#17151a';x.fillRect(19*S+22,3*S+22+i*65,3,3);}
+    if(!flags.chestOpen){detailRect(chestPos.a*S+6,chestPos.b*S+8,20,16,'#6b4a2e','#241708');
+      x.fillStyle='#c9a36d';x.fillRect(chestPos.a*S+6,chestPos.b*S+14,20,3);
+      x.fillStyle='#e8d49a';x.fillRect(chestPos.a*S+14,chestPos.b*S+15,4,5);}
+    else{detailRect(chestPos.a*S+6,chestPos.b*S+2,20,16,'#4a3320','#241708');
+      x.fillStyle='#241708';x.fillRect(chestPos.a*S+10,chestPos.b*S+18,12,6);}
+    if(flags.final){x.font='bold 11px monospace';x.textAlign='center';x.fillStyle='#d45b68';
+      x.fillText(heroName,19*S+23,3*S+2);x.textAlign='left';}
+    x.fillStyle='#8e6b55';x.fillRect(7*S,2*S+5,11*S,3);
+    x.fillStyle='#a88c70';for(let i=0;i<5;i++)x.fillRect((8+i*2)*S+12,2*S+10,8,3);
+    x.fillStyle='#6b343d';x.fillRect(7*S,12*S,11*S,5);x.fillRect(7*S,12*S,5,2*S);
+    x.fillStyle='#b38c66';x.fillRect(11*S,7*S,2,2*S);
+    doorLabel('\u2193 Hall',12,14);doorLabel('\u2192 Biblioth\u00e8que',1,8);
+  }else if(room==='library'){
+    detailRect(2*S,2*S,3*S,11*S,'#493024','#211816');
+    for(let j=0;j<5;j++){x.fillStyle='#9c7650';x.fillRect(2*S+5,2*S+12+j*65,3*S-10,4);
+      for(let i=0;i<5;i++){x.fillStyle=['#6d4540','#8a6546','#435b60','#a07a4e','#66506a'][(i+j)%5];x.fillRect(2*S+8+i*15,2*S+18+j*65,10,25)}}
+    detailRect(11*S,2*S,3*S,3*S,'#49372c');
+    x.fillStyle='#b99b70';x.fillRect(11*S+7,2*S+9,3*S-14,3);x.fillRect(12*S+12,2*S+13,3,20);
+    detailRect(7*S,8*S,5*S,2*S,'#493024');
+    x.fillStyle='#b38a5b';x.fillRect(8*S,8*S+6,4*S,3);
+    x.fillStyle='#d4c39a';x.fillRect(9*S+10,8*S-4,20,10);
+    x.fillStyle='#6e5948';for(let i=0;i<4;i++)x.fillRect((15+i)*S,12*S,3,2*S);
+    doorLabel('\u2190 Galerie',23,8);doorLabel('\u2193 Studio interdit',12,14);
+  }else if(room==='studio'){
+    detailRect(8*S,6*S,9*S,4*S,'#111522','#070b12');
+    x.fillStyle='#a43c52';x.fillRect(10*S,7*S,5*S,2*S);
+    x.fillStyle='#e0a6a2';x.fillRect(10*S+8,7*S+6,5*S-16,3);
+    detailRect(3*S,3*S,4*S,3*S,'#263748','#101722');
+    for(let i=0;i<3;i++){x.fillStyle='#5d7890';x.fillRect(3*S+8+i*34,3*S+8,25,18);x.fillStyle='#9ce6c8';x.fillRect(3*S+12+i*34,3*S+12,5,3)}
+    detailRect(18*S,3*S,4*S,3*S,'#263748','#101722');
+    for(let i=0;i<4;i++){x.fillStyle='#6f8191';x.fillRect(18*S+7,3*S+8+i*12,4*S-14,4);x.fillStyle=i===0?(frame%40<20?'#d45b68':'#5a2229'):'#9ce6c8';x.fillRect(18*S+4*S-18,3*S+8+i*12,4,4)}
+    x.fillStyle='#bb5368';x.beginPath();x.arc(12*S+16,11*S,5,0,Math.PI*2);x.fill();
+    x.fillStyle='#9ce6c8';x.fillRect(9*S,12*S,7*S,3);
+    for(let i=0;i<5;i++){x.strokeStyle='#566b80';x.beginPath();x.moveTo((8+i)*S,14*S);x.lineTo((9+i)*S,13*S);x.stroke()}
+    doorLabel('\u2191 Biblioth\u00e8que',12,1);doorLabel('\u2192 Escalier de service',23,8);
+  }else if(room==='cellar'){
+    detailRect(4*S,3*S,5*S,3*S,'#393347','#171522');
+    for(let i=0;i<4;i++){x.fillStyle='#6d667b';x.fillRect(4*S+8+i*34,3*S+8,22,18);x.fillStyle='#9ce6c8';x.fillRect(4*S+12+i*34,3*S+12,4,3)}
+    detailRect(17*S,9*S,5*S,3*S,'#393347','#171522');
+    for(let i=0;i<4;i++){x.fillStyle='#766a61';x.fillRect(17*S+8+i*32,9*S+8,22,20)}
+    x.strokeStyle='#655b78';x.lineWidth=3;for(let i=0;i<4;i++){x.beginPath();x.moveTo((3+i*5)*S,1*S);x.lineTo((3+i*5)*S,3*S);x.stroke()}
+    x.fillStyle='#9a8cae';x.fillRect(10*S,2*S,5*S,3);
+    doorLabel('\u2190 Studio',1,8);
+  }
+}
+
+function wallTile(a,b,m){
+  x.fillStyle=m.wall;x.fillRect(a*S,b*S,S,S);
+  x.fillStyle='rgba(255,255,255,.10)';x.fillRect(a*S,b*S,S,4);
+  x.fillStyle='rgba(0,0,0,.30)';x.fillRect(a*S,b*S+28,S,4);
+  x.fillStyle='rgba(0,0,0,.16)';
+  x.fillRect(a*S,b*S+14,S,2);
+  x.fillRect(a*S+((b%2)*16+8)%32,b*S,2,14);
+  x.fillRect(a*S+((b%2)*16+24)%32,b*S+16,2,12);
+}
+function drawFloor(m){
+  const pat={hall:'wood',gallery:'marble',library:'wood',studio:'concrete',cellar:'stone'}[room];
+  for(let b=0;b<R;b++)for(let a=0;a<C;a++){
+    const w=wall(a,b);
+    if(w){wallTile(a,b,m);continue;}
+    x.fillStyle=m.floor;x.fillRect(a*S,b*S,S,S);
+    if(pat==='wood'){
+      x.fillStyle='rgba(0,0,0,.16)';x.fillRect(a*S,b*S+((a*3)%4)*8,S,2);
+      x.fillStyle='rgba(255,255,255,.05)';x.fillRect(a*S,b*S+((a*5)%4)*8+3,S,1);
+    }else if(pat==='marble'){
+      x.fillStyle=((a+b)%2)?'rgba(255,255,255,.06)':'rgba(0,0,0,.10)';x.fillRect(a*S,b*S,S,S);
+      x.fillStyle='rgba(0,0,0,.20)';x.fillRect(a*S,b*S,S,2);x.fillRect(a*S,b*S,2,S);
+    }else if(pat==='concrete'){
+      x.fillStyle='rgba(0,0,0,.13)';x.fillRect(a*S+((b*7)%5)*6,b*S+((a*11)%5)*6,4,3);
+      x.fillStyle='rgba(255,255,255,.02)';x.fillRect(a*S,b*S,S,3);
+    }else if(pat==='stone'){
+      x.fillStyle='rgba(0,0,0,.17)';x.fillRect(a*S,b*S,S,2);x.fillRect(a*S,b*S,2,S);
+      x.fillStyle='rgba(0,0,0,.10)';x.fillRect(a*S+14,b*S+18,7,2);x.fillRect(a*S+6,b*S+24,3,2);
+    }
+    x.fillStyle='#ffffff08';x.fillRect(a*S+4,b*S+4,2,2);
+    if((a*7+b*11)%19===0){x.fillStyle='#00000014';x.fillRect(a*S+8,b*S+20,15,2)}
+  }
+}
+function drawItem(px,py,id){
+  const pulse=.5+.5*Math.sin(frame/10);
+  glow(px,py,12+5*pulse,'#ffe9a3',.22+.18*pulse);
+  if(id==='key_vitrine'){
+    x.fillStyle='#6b5a2c';x.fillRect(px-10,py-5,10,8);
+    x.fillStyle='#e8d49a';x.fillRect(px-9,py-4,8,6);
+    x.fillStyle='#b89a52';x.fillRect(px-9,py-4,8,2);
+  }else{
+    x.fillStyle='#8a7440';x.fillRect(px-8,py-7,16,15);
+    x.fillStyle='#d8c58a';x.fillRect(px-6,py-5,12,11);
+    x.fillStyle='#fff2c4';x.fillRect(px-3,py-3,6,5);
+    x.fillStyle='#9c7f3d';x.fillRect(px-6,py+3,12,3);
+  }
+}
+function drawAmbient(){
+  const fl=.7+.3*Math.sin(frame/9);
+  if(room==='hall'){
+    // lustre au centre, halo scintillant
+    glow(12*S+16,3*S+8,64,'#ffe2a0',.10*fl);
+    x.fillStyle='#3a2f1c';x.fillRect(12*S+10,1*S+14,12,6);
+    for(let i=0;i<3;i++){
+      x.fillStyle='#c9a36d';x.fillRect(11*S+14+i*14,2*S+14,2,6);
+      x.fillStyle='#e8d49a';x.fillRect(11*S+16+i*14,2*S+20,4,6);
+      glow(11*S+18+i*14,2*S+26,16,'#ffdf9e',.28*fl);
+    }
+  }else if(room==='studio'){
+    // \u00e9cran de diffusion : statique + cam\u00e9ra sur pied
+    x.fillStyle='#0a101c';x.fillRect(10*S+4,7*S+4,5*S-8,2*S-8);
+    for(let i=0;i<26;i++){
+      const nx=10*S+6+((frame*13+i*67)%(5*S-12)),ny=7*S+6+((frame*29+i*41)%(2*S-12));
+      x.fillStyle='rgba(220,230,255,'+(((frame+i*31)%9)/40)+')';x.fillRect(nx,ny,2,2);
+    }
+    x.strokeStyle='#5a6a7c';x.lineWidth=3;x.beginPath();x.moveTo(11*S+16,10*S);x.lineTo(11*S+16,11*S+12);x.stroke();
+    x.fillStyle='#222a36';x.fillRect(11*S+6,9*S+4,20,12);
+    x.fillStyle='#101722';x.fillRect(11*S+24,9*S+7,5,6);
+    const live=clues.size>=4&&frame%40<20;
+    x.fillStyle=live?'#ff5a68':'#5a2229';x.fillRect(11*S+8,9*S+6,4,4);
+    if(live)glow(11*S+10,9*S+8,14,'#ff5a68',.4);
+  }else if(room==='cellar'){
+    // bougies votives au sol
+    for(let i=0;i<4;i++){
+      const cx=(4+i*5)*S+16,cy=12*S+16;
+      x.fillStyle='#cbb894';x.fillRect(cx-2,cy-8,4,8);
+      x.fillStyle='#ffb968';x.fillRect(cx-1,cy-13-2*fl,2,5);
+      glow(cx,cy-12,20,'#ffb968',.22*fl);
+    }
+  }else if(room==='library'){
+    glow(9*S+20,8*S-2,28,'#ffd9a0',.18*fl);
+  }else if(room==='gallery'){
+    glow(12*S+16,2*S+16,55,'#e8d0b0',.07);
+  }
+}
+function draw(){
+  let m=maps[room];
+  x.font='10px monospace';
+  drawFloor(m);
+  drawRoomDetails();
+  for(let it of m.items){
+    if(evidence[it[0]]?clues.has(it[0]):items.has(it[0]))continue;
+    drawItem(it[1]*S+16,it[2]*S+16,it[0]);
+  }
+  for(let n of m.npcs)person(n[1]*S+16,n[2]*S+16,n[3],n[4]==='ghost',n[0]);
+  person(pl.x,pl.y,'#9ce6c8',false,heroName);
+  drawAmbient();
+  x.font='13px monospace';
+  x.fillStyle='#07111de6';x.fillRect(10,10,252,30);
+  x.fillStyle='#9ce6c8';x.fillRect(10,10,4,30);
+  x.fillStyle='white';x.fillText(m.name,24,30);
+  let n=near();
+  if(n){
+    x.fillStyle='#07111ddd';x.fillRect(235,468,330,30);
+    x.strokeStyle='#9ce6c8';x.strokeRect(235,468,330,30);
+    x.fillStyle='white';x.textAlign='center';x.fillText('E : '+n.label,400,488);x.textAlign='left';
+  }
+  if(flags.studio||room==='cellar'){
+    x.fillStyle='#bb5368';x.globalAlpha=.06+Math.sin(frame/12)*.04;
+    x.fillRect(0,0,800,512);x.globalAlpha=1;
+  }
+  // Vignette : l'angoisse referme l'\u00e9cran au fil de l'enqu\u00eate.
+  const dread=clues.size/7+(room==='cellar'?.3:0);
+  x.fillStyle='rgba(4,7,12,'+(0.25+dread*0.35)+')';
+  x.fillRect(0,0,800,16+dread*10);x.fillRect(0,512-16-dread*10,800,16+dread*10);
+  x.fillRect(0,0,16+dread*10,512);x.fillRect(800-16-dread*10,0,16+dread*10,512);
+  if(clues.size>=2&&frame%240<8){x.fillStyle='#bb536818';x.fillRect(0,0,800,512)}
+  // HUD du direct fant\u00f4me : il s'impose quand l'enqu\u00eate avance.
+  let viewers=clues.size<4?0:Math.min(9,clues.size-3+(flags.studio?1:0)+(flags.chestOpen?1:0));
+  if(room==='cellar')viewers=10;
+  if(viewers>0){
+    const blink=frame%50<25;
+    x.fillStyle='#bb5368';x.beginPath();x.arc(726,24,6,0,Math.PI*2);x.fill();
+    if(blink){x.fillStyle='#fff';x.beginPath();x.arc(726,24,2,0,Math.PI*2);x.fill()}
+    x.fillStyle='#07111ddd';x.fillRect(738,14,54,20);
+    x.fillStyle=blink?'#ffd7dc':'#bb5368';x.font='bold 12px monospace';x.fillText('LIVE',742,28);
+    x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(viewers+' spec.',660,28);
+    if(frame%140<4){x.fillStyle='#ffffff14';for(let i=0;i<4;i++){const gy=(frame*37+i*131)%512;x.fillRect(0,gy,800,2)}}
+    if(frame%210<10){x.fillStyle='#bb536810';x.fillRect(0,(frame*53)%400,800,3)}
+  }
+}
+
+function near(){
+  let m=maps[room],a=[];
+  for(let n of m.npcs){let d=Math.hypot(pl.x-(n[1]*S+16),pl.y-(n[2]*S+16));if(d<44)a.push({d,label:n[0],fn:()=>talk(n)})}
+  for(let it of m.items){
+    const done=evidence[it[0]]?clues.has(it[0]):items.has(it[0]);
+    if(done)continue;
+    let d=Math.hypot(pl.x-(it[1]*S+16),pl.y-(it[2]*S+16));
+    const lbl=evidence[it[0]]?'Examiner : '+evidence[it[0]]:'Prendre : '+itemsDb[it[0]];
+    if(d<44)a.push({d,label:lbl,fn:()=>inspect(it[0])});
+  }
+  if(room==='gallery'&&!flags.chestOpen){
+    let d=Math.hypot(pl.x-(chestPos.a*S+16),pl.y-(chestPos.b*S+16));
+    if(d<48)a.push({d,label:items.has('key_vitrine')?'Ouvrir le coffre de la vitrine':'Coffre verrouill\u00e9 (cl\u00e9 requise)',fn:openChest});
+  }
+  for(let d of m.doors){if(Math.hypot(pl.x-(d[1]*S+16),pl.y-(d[2]*S+16))<52)a.push({d:1,label:d[5],fn:()=>go(d)})}
+  return a.sort((a,b)=>a.d-b.d)[0];
+}
+
+function say(w,t,cb){dialog={w,lines:Array.isArray(t)?t:[t],cb};di=0;show();resetKeys();}
+function show(){document.getElementById('who').textContent=dialog.w;document.getElementById('words').textContent=dialog.lines[di];document.getElementById('dlg').classList.add('show')}
+function advance(){if(!dialog)return;if(++di<dialog.lines.length)show();else{let cb=dialog.cb;dialog=null;document.getElementById('dlg').classList.remove('show');if(cb)cb();popEvent()}}
+
+function talk(n){
+  const id=n[0],has=k=>clues.has(k);
+  if(id==='Unname'){
+    if(!seen.has('Unname')){seen.add('Unname');save();say('Unname',[
+      'Tu es enfin l\u00e0, '+heroName+'. J\u2019avais pr\u00e9par\u00e9 une soir\u00e9e pour les habitu\u00e9s du canal, pas une exp\u00e9rience de spiritisme. Pourtant, depuis que nous sommes entr\u00e9s, le manoir semble reconna\u00eetre chacun de nous.',
+      '\u00c0 23 h 17, le direct s\u2019est lanc\u00e9 depuis une cha\u00eene qui n\u2019existe plus. L\u2019image avait onze secondes d\u2019avance sur nous. J\u2019ai vu la porte du hall se fermer avant qu\u2019elle ne bouge.',
+      'J\u2019ai invit\u00e9 les autres parce qu\u2019ils ont tous particip\u00e9 \u00e0 la derni\u00e8re \u00e9mission de Valombre, celle qu\u2019on n\u2019a jamais pu rediffuser. Quelqu\u2019un a coup\u00e9 le son cette nuit-l\u00e0. Depuis, personne ne se souvient de la m\u00eame version.',
+      'Voil\u00e0 comment je vois l\u2019enqu\u00eate : commence par le hall (le ticket et la photo), puis la galerie (la cassette et le symbole), puis la biblioth\u00e8que (le plan, le journal de maintenance). Ces trois pi\u00e8ces ouvriront le studio. Reviens nous parler apr\u00e8s chaque d\u00e9couverte : nos souvenirs bougent.'
+    ]);}
+    else if(flags.studio&&!flags.chestOpen&&!items.has('fusible'))say('Unname',['Le circuit est r\u00e9tabli, mais j\u2019ai rep\u00e9r\u00e9 quelque chose pr\u00e8s de la r\u00e9gie : une petite cl\u00e9 \u00e9tiquet\u00e9e \u00ab vitrine sud \u00bb. Elle doit ouvrir le coffre scell\u00e9 de la galerie, celui que personne n\u2019a jamais r\u00e9ussi \u00e0 forcer.','Prends-la, puis retourne fouiller la galerie : le coffre attendait le retour du courant pour se laisser faire.']);
+    else if(flags.chestOpen)say('Unname',['Un fusible de relais\u2026 Le verrou du sous-sol n\u2019attendait pas seulement un code : il attendait une pi\u00e8ce du circuit original. Quelqu\u2019un l\u2019a retir\u00e9 pour emp\u00eacher quiconque de redescendre.','R\u00e9unis les sept preuves, puis entre au sous-sol la date du ticket : jour, puis mois. Apr\u00e8s \u00e7a, je ne pourrai plus te suivre.']);
+    else if(has('voice'))say('Unname',['Tu as entendu ma voix dans l\u2019enregistrement ? Ce n\u2019est pas une imitation. Je me souviens de l\u2019avoir prononc\u00e9e, mais pas de l\u2019avoir enregistr\u00e9e.','Si la bande dit que je suis d\u00e9j\u00e0 en bas, alors il existe une version de moi qui a v\u00e9cu cette nuit avant nous. Ne la laisse pas prendre ma place.']);
+    else if(has('photo'))say('Unname',['La photo\u2026 Je l\u2019avais rang\u00e9e apr\u00e8s la premi\u00e8re diffusion. Nous \u00e9tions huit invit\u00e9s, moi et le cam\u00e9raman. Neuf en tout.','Je reconnais les v\u00eatements, la lumi\u00e8re, m\u00eame la fissure du mur. Mais cette silhouette derri\u00e8re moi n\u2019\u00e9tait pas l\u00e0 quand le d\u00e9clencheur a claqu\u00e9.']);
+    else say('Unname',['Je n\u2019ai pas verrouill\u00e9 les portes. J\u2019ai essay\u00e9 de couper le disjoncteur, mais le voyant du direct est rest\u00e9 allum\u00e9.','Le ticket et la photo sont dans le hall. Commence par l\u00e0. Et si quelqu\u2019un te dit qu\u2019il se souvient parfaitement de cette nuit, demande-lui quelle heure il \u00e9tait.']);
+    return;
+  }
+  if(id==='Le Régisseur'){
+    if(has('ticket')&&has('photo')&&has('tape')&&has('voice')&&has('symbol')&&has('plan')&&has('log')){
+      say('Le Régisseur',[
+        'Tu as reconstitu\u00e9 la s\u00e9quence, '+heroName+'. Le ticket n\u2019\u00e9tait pas un simple avertissement : c\u2019\u00e9tait l\u2019ordre de ne jamais relancer la diffusion apr\u00e8s la coupure. Le journal prouve que quelqu\u2019un a pourtant r\u00e9arm\u00e9 les trois relais.',
+        'Je n\u2019\u00e9tais pas le technicien de cette \u00e9mission. J\u2019\u00e9tais charg\u00e9 de conserver les enregistrements. Quand le direct a \u00e9t\u00e9 interrompu, une voix a continu\u00e9 \u00e0 parler dans le casque alors que la salle \u00e9tait vide.',
+        'La photographie montre dix silhouettes parce que l\u2019objectif a gard\u00e9 la trace de celui qui regardait depuis l\u2019autre c\u00f4t\u00e9. Vous avez cru inviter des t\u00e9moins. Vous avez fourni un public.',
+        'Et le dixi\u00e8me cadre, celui qui est rest\u00e9 vide dans la galerie toutes ces ann\u00e9es\u2026 Il attendait un nom. Le registre du manoir a \u00e9t\u00e9 sign\u00e9 ce soir, \u00e0 ton arriv\u00e9e. Regarde la plaque sous le cadre, '+heroName+'.',
+        'Unname a demand\u00e9 qu\u2019on efface la derni\u00e8re bande. Je l\u2019ai cach\u00e9e ici. Mais la bande n\u2019a jamais cess\u00e9 de tourner. Elle attendait qu\u2019un nouveau regard lui donne une image.'
+      ],()=>{startEnding();});
+    }else{
+      say('Le Régisseur',[
+        'Ne t\u2019approche pas de la console. Elle n\u2019est pas reli\u00e9e au r\u00e9seau \u00e9lectrique du manoir. Elle fonctionne avec les images qu\u2019on lui confie.',
+        'Il manque encore des pi\u00e8ces \u00e0 ton dossier. Le ticket donne une date, la cassette explique le compte, et les archives techniques r\u00e9v\u00e8lent qui a remis le syst\u00e8me en marche.',
+        'Le panneau du verrou inf\u00e9rieur a aussi un emplacement vide : un fusible a \u00e9t\u00e9 retir\u00e9 du circuit la nuit de la coupure. Sans lui, aucun code n\u2019ouvrira cette porte.',
+        'Je ne peux pas te donner le code. Je peux seulement te dire ceci : les heures du journal ne sont pas des horaires de travail. Ce sont les heures auxquelles la maison a recommenc\u00e9 \u00e0 se souvenir.'
+      ]);
+    }
+    return;
+  }
+  const stories={
+    'tom_hagane':[
+      ['Je suis venu pour v\u00e9rifier le mat\u00e9riel audio. Unname m\u2019a dit que le vieux syst\u00e8me \u00e9tait d\u00e9coratif. Pourtant, j\u2019ai entendu un retour casque avant m\u00eame qu\u2019on branche la r\u00e9gie.','Le ticket de r\u00e9gie m\u2019inqui\u00e8te. La mention \u00ab ne pas relancer \u00bb ressemble \u00e0 une consigne que j\u2019ai d\u00e9j\u00e0 vue, sur une fiche datant de la premi\u00e8re \u00e9mission.'],
+      ['Le bruit venait du couloir, pas des enceintes. J\u2019ai suivi le c\u00e2ble jusqu\u2019au mur : il disparaissait derri\u00e8re la pierre.','Si tu trouves le journal de maintenance, regarde les minutes entre chaque relais. Ce n\u2019est pas le rythme d\u2019une r\u00e9paration normale.'],
+      ['Depuis que le studio est aliment\u00e9, j\u2019entends trois relais cliquer dans les murs : galerie, biblioth\u00e8que, studio. Le quatri\u00e8me clic vient de sous le sol.','J\u2019ai vu une clé briller près de la régie, ce soir. Je n\u2019ai pas osé la toucher : l\u2019étiquette mentionnait une vitrine qui n\u2019existe pas sur le plan officiel.']
+    ],
+    'simon_shinji':[
+      ['Je mod\u00e9rais le chat le soir de la premi\u00e8re diffusion. \u00c0 23 h 17, des messages sont apparus avant que l\u2019image soit envoy\u00e9e. Les comptes avaient tous le m\u00eame avatar : un \u00e9cran noir.','J\u2019ai quitt\u00e9 le canal apr\u00e8s \u00e7a. Les messages continuaient m\u00eame quand j\u2019avais ferm\u00e9 la page.'],
+      ['Sur cette photo, personne ne regarde l\u2019objectif. Nous regardions tous le moniteur \u00e0 c\u00f4t\u00e9. Sauf la silhouette derri\u00e8re Unname. Elle regarde directement ici.','Je crois que le direct ne cherchait pas des spectateurs. Il cherchait quelqu\u2019un qui le reconnaisse.'],
+      ['Le chat est r\u00e9apparu sur mon t\u00e9l\u00e9phone depuis que le circuit est remis. Dix spectateurs. Nous sommes neuf dans le manoir, en comptant le fant\u00f4me.','Le dixi\u00e8me spectateur ne poste jamais. Il attend que quelqu\u2019un signe le registre\u2026 tu l\u2019as sign\u00e9, n\u2019est-ce pas, en arrivant ?']
+    ],
+    'kataneo21':[
+      ['J\u2019ai pass\u00e9 la soir\u00e9e \u00e0 photographier les portraits. Sur chaque clich\u00e9, les visages perdaient un d\u00e9tail : une bouche, un \u0153il, parfois tout le nom sous le cadre.','La cassette doit \u00eatre celle que j\u2019ai entendue dans la galerie. Elle comptait \u00e0 rebours, mais le compteur de la cam\u00e9ra avan\u00e7ait.'],
+      ['J\u2019ai compar\u00e9 les cadres. Le portrait le plus ancien a \u00e9t\u00e9 retourn\u00e9, comme si on avait voulu cacher le sens du regard.','Le symbole grav\u00e9 pr\u00e8s de la vitrine ressemble au marquage des relais. Ce n\u2019est pas une d\u00e9coration : quelqu\u2019un a essay\u00e9 de laisser un plan sans \u00e9crire de mots.'],
+      ['Le coffre au fond de la galerie\u2026 la l\u00e9gende dit qu\u2019il contient une pi\u00e8ce du circuit original, sortie la nuit de la coupure. Personne n\u2019a jamais trouv\u00e9 la cl\u00e9. On disait qu\u2019elle dormait dans une pi\u00e8ce interdite.','Si tu le trouves ouvert un jour, ne te retourne pas : le cadre vide au-dessus choisit ce moment-l\u00e0 pour se remplir.']
+    ],
+    'eltise':[
+      ['Je connais cette galerie. J\u2019y suis d\u00e9j\u00e0 venue pour une visite, il y a des ann\u00e9es. \u00c0 l\u2019\u00e9poque, il n\u2019y avait que neuf cadres. Aujourd\u2019hui, le dixi\u00e8me est vide, mais la poussi\u00e8re autour est intacte.','Ne touche pas au verre. Quand je me suis approch\u00e9e, mon reflet a clign\u00e9 des yeux apr\u00e8s moi.'],
+      ['La silhouette sur la photo porte une veste de r\u00e9gie. Aucun de nous n\u2019en avait une ce soir-l\u00e0.','Le manoir conserve les images comme d\u2019autres conservent des lettres. Certaines ne veulent pas \u00eatre retrouv\u00e9es.'],
+      ['Le coffre sous la vitrine s\u2019est mis \u00e0 fr\u00e9mir quand le courant est revenu. Je l\u2019ai entendu \u00e0 travers la pierre.','Le dixi\u00e8me cadre n\u2019attend pas un portrait. Il attend un nom. C\u2019est pour \u00e7a qu\u2019il est rest\u00e9 vide : un nom \u00e7a s\u2019inscrit, \u00e7a ne se peint pas.']
+    ],
+    'S4tha':[
+      ['Je classe les archives par date, pas par titre. Le plan des conduits a \u00e9t\u00e9 gliss\u00e9 dans un registre qui ne concerne m\u00eame pas le b\u00e2timent. Quelqu\u2019un voulait qu\u2019on le trouve sans le chercher.','La biblioth\u00e8que a toujours \u00e9t\u00e9 la pi\u00e8ce la plus froide. M\u00eame en \u00e9t\u00e9, les pages y deviennent humides.'],
+      ['J\u2019ai retrouv\u00e9 une annotation au dos du plan : galerie, biblioth\u00e8que, studio. Ce n\u2019est pas un itin\u00e9raire de visite, c\u2019est l\u2019ordre d\u2019alimentation du circuit.','Si le studio s\u2019allume, ne crois pas que tu as r\u00e9par\u00e9 quelque chose. Tu as peut-\u00eatre simplement remis le manoir en \u00e9tat de diffuser.'],
+      ['Le registre des archives mentionne un \u00ab fusible de relais \u00bb d\u00e9pos\u00e9 dans un coffre de la galerie apr\u00e8s la coupure. La cl\u00e9, elle, aurait \u00e9t\u00e9 perdue c\u00f4t\u00e9 studio, dans la r\u00e9gie interdite.','Le sous-sol n\u2019a jamais \u00e9t\u00e9 \u00e9lectriquement clos : quelqu\u2019un a retir\u00e9 une pi\u00e8ce pour que le verrou reste muet. Remets-la, et la maison finira son histoire.']
+    ],
+    'unfamiliary':[
+      ['Je suis venu pour les archives sonores. Il y a un blanc de onze secondes dans chaque copie de l\u2019\u00e9mission. Pas un silence : une absence de donn\u00e9es, comme si le son avait \u00e9t\u00e9 retir\u00e9 du fichier lui-m\u00eame.','Dans le journal, cherche l\u2019heure exacte de la derni\u00e8re r\u00e9paration. Le blanc se termine toujours \u00e0 la m\u00eame minute.'],
+      ['Le symbole n\u2019est pas un sceau. C\u2019est une repr\u00e9sentation des trois relais et du retour cam\u00e9ra. Le quatri\u00e8me trait est le circuit qui revient vers la salle.','Le syst\u00e8me ne boucle pas le son. Il boucle le regard. C\u2019est pour \u00e7a que la bande continue m\u00eame quand personne ne parle.'],
+      ['J\u2019ai r\u00e9\u00e9cout\u00e9 la transcription depuis que le circuit est vivant. La respiration derri\u00e8re la voix ne vient pas de la salle : elle vient du couloir du sous-sol, en bas de l\u2019escalier de service.','Onze secondes d\u2019avance, dix silhouettes, un nom sign\u00e9 au registre. Le manoir n\u2019a jamais eu besoin de nous ramener. Il avait juste besoin que le dixi\u00e8me revienne par lui-m\u00eame.']
+    ],
+    'Drunkman':[
+      ['J\u2019ai fait la r\u00e9gie de secours pendant la soir\u00e9e. Je me rappelle avoir coup\u00e9 le courant. Je me rappelle aussi avoir entendu quelqu\u2019un compter dans le noir. Le probl\u00e8me, c\u2019est que j\u2019\u00e9tais seul dans la pi\u00e8ce.','Les \u00e9crans du studio affichent parfois une image de la salle avec quelques secondes d\u2019avance. Ne reste pas devant trop longtemps.'],
+      ['Je n\u2019ai jamais remis le syst\u00e8me en route. Le journal dit le contraire, mais cette \u00e9criture n\u2019est pas la mienne.','Quand tu auras la transcription, \u00e9coute la respiration avant les mots. La personne qui parle est tout pr\u00e8s du micro. Beaucoup trop pr\u00e8s.'],
+      ['J\u2019ai retrouv\u00e9 mon nom dans le journal de maintenance, sign\u00e9 \u00e0 une heure o\u00f9 j\u2019\u00e9tais dehors. Quelqu\u2019un \u00e9crit avec nos mains pendant que nous dormons.','Si tu descends, souviens-toi : celui qui garde la console ne t\u2019a jamais vu arriver. Il t\u2019a vu signer. C\u2019est diff\u00e9rent.']
+    ],
+    'lapetitebeaute':[
+      ['Je devais pr\u00e9senter la soir\u00e9e. J\u2019avais pr\u00e9par\u00e9 un texte d\u2019introduction, mais le prompteur affichait d\u00e9j\u00e0 une phrase que je n\u2019avais pas \u00e9crite : \u00ab Merci d\u2019\u00eatre rest\u00e9s jusqu\u2019\u00e0 la fin \u00bb.','Je n\u2019ai pas r\u00e9ussi \u00e0 la lire. Pourtant, dans l\u2019enregistrement, on m\u2019entend la prononcer.'],
+      ['La voix de la transcription est la mienne aussi, mais elle parle comme si elle avait attendu des ann\u00e9es entre deux mots.','Si tu trouves le R\u00e9gisseur, demande-lui ce qu\u2019il a conserv\u00e9 apr\u00e8s la coupure. Il \u00e9tait le seul \u00e0 pouvoir acc\u00e9der aux bandes originales.'],
+      ['Le registre \u00e0 l\u2019entr\u00e9e\u2026 j\u2019ai regard\u00e9 les pages anciennes. Neuf noms de la premi\u00e8re soir\u00e9e. Et une dixi\u00e8me ligne, vide, qui attendait.','Quand tu as sign\u00e9 ce soir, l\u2019encre \u00e9tait d\u00e9j\u00e0 s\u00e8che sur ta signature, comme si le manoir l\u2019avait \u00e9crite avant toi, '+heroName+'.']
+    ]
+  };
+  const data=stories[id];
+  if(data){
+    const branch=flags.studio?2:(clues.size>=3?1:0);
+    const key='talk_'+id+'_'+branch;
+    if(!seen.has(key)){seen.add(key);save();say(id,data[branch]);}
+    else{
+      const follow={
+        'tom_hagane':'J\u2019entends toujours le retour casque. C\u2019est pire : maintenant, j\u2019entends le son avant qu\u2019il soit produit.',
+        'simon_shinji':'Le compteur de spectateurs augmente encore. Nous sommes pourtant enferm\u00e9s ici.',
+        'kataneo21':'J\u2019ai cess\u00e9 de prendre des photos. Chaque nouvelle image ajoute une silhouette que je ne vois pas dans la pi\u00e8ce.',
+        'eltise':'Le cadre vide n\u2019est plus vide quand je d\u00e9tourne les yeux. Je pr\u00e9f\u00e8re ne pas v\u00e9rifier ce qu\u2019il contient.',
+        'S4tha':'Les pages du registre se r\u00e9organisent toutes seules. La prochaine fois, je ne toucherai plus aux archives.',
+        'unfamiliary':'J\u2019ai isol\u00e9 le bruit du fond. Ce n\u2019est pas un souffle : c\u2019est une salle qui applaudit tr\u00e8s loin.',
+        'Drunkman':'Le voyant REC clignote encore. J\u2019ai retir\u00e9 tous les c\u00e2bles. Il n\u2019a plus besoin de cam\u00e9ra.',
+        'lapetitebeaute':'Je connais maintenant la phrase qui vient apr\u00e8s \u00ab merci d\u2019\u00eatre rest\u00e9s \u00bb. Je refuse de la prononcer.'
+      };say(id,follow[id]);
+    }
+    return;
+  }
+  say(id,'Il garde le silence. Son regard revient sans cesse vers les \u00e9crans \u00e9teints.');
+}
+
+function inspect(id){
+  if(id==='key_vitrine'){
+    items.add('key_vitrine');ui();save();
+    say('Clé de la vitrine','Petite cl\u00e9 de laiton trouv\u00e9e sur la r\u00e9gie, dans l\u2019\u00e9tui d\u2019un technicien. L\u2019\u00e9tiquette attach\u00e9e \u00e0 l\u2019anneau pr\u00e9cise : \u00ab Vitrine sud \u2014 galerie. Coffre scell\u00e9. Ne pas ouvrir avant r\u00e9tablissement du circuit. \u00bb\nLe circuit est r\u00e9tabli. Retourne \u00e0 la galerie ouvrir le coffre. Elle reste dans ton inventaire jusqu\u2019\u00e0 la fin de l\u2019enqu\u00eate.',null);
+    return;
+  }
+  let t={
+    ticket:['Ticket de régie','Papier jauni, tamponn\u00e9 le 17 octobre \u00e0 02:13. Sous le num\u00e9ro de s\u00e9ance, une consigne est soulign\u00e9e trois fois : \u00ab NE PAS RELANCER LE DIRECT APR\u00c8S LA COUPURE \u00bb. Au dos, une main diff\u00e9rente a \u00e9crit : \u00ab Le verrou inf\u00e9rieur garde la date du premier enregistrement : jour, puis mois. \u00bb Une tache circulaire recouvre la signature du technicien.'],
+    photo:['Photographie déchirée','La photo a \u00e9t\u00e9 prise dans le hall, devant le tapis d\u2019accueil. Neuf personnes sont identifiables, mais dix ombres tombent sur le mur. La silhouette suppl\u00e9mentaire se tient derri\u00e8re Unname et regarde l\u2019objectif, pas le photographe. Au dos : \u00ab Premi\u00e8re prise \u2014 ne jamais diffuser la version compl\u00e8te \u00bb. Le papier est froid au toucher.'],
+    tape:['Cassette TEST 0','La bande commence par dix claquements secs, puis une voix compte de dix \u00e0 un. Au dernier chiffre, le souffle continue alors que la bande semble arr\u00eat\u00e9e. Une seconde voix murmure : \u00ab Le dixi\u00e8me n\u2019est pas dans la pi\u00e8ce. Il est dans le direct. \u00bb Sur l\u2019\u00e9tiquette : \u00ab TEST 0 \u2014 conserver le 10 apr\u00e8s la date du ticket \u00bb. La cassette a \u00e9t\u00e9 rembobin\u00e9e jusqu\u2019\u00e0 user la bande.'],
+    symbol:['Symbole inversé','Trois cercles sont reli\u00e9s par une ligne grav\u00e9e dans le bois. Un quatri\u00e8me trait revient vers le premier cercle, mais il a \u00e9t\u00e9 presque effac\u00e9. Le dessin repr\u00e9sente les trois relais \u2014 galerie, biblioth\u00e8que, studio \u2014 puis le retour cam\u00e9ra. Une annotation minuscule pr\u00e9cise : \u00ab Ne jamais fermer la boucle avant le dernier relais \u00bb.'],
+    plan:['Plan des conduits','Le plan r\u00e9v\u00e8le un r\u00e9seau qui ne figure sur aucun plan officiel du manoir. Les c\u00e2bles partent de la galerie, traversent la biblioth\u00e8que et aboutissent au studio. Une conduite revient ensuite vers une pi\u00e8ce non r\u00e9pertori\u00e9e sous le b\u00e2timent. Dans la marge : \u00ab Le local technique ne s\u2019ouvre qu\u2019apr\u00e8s r\u00e9tablissement du circuit. Ne pas suivre le c\u00e2ble de retour seul. \u00bb'],
+    log:['Journal de maintenance','22:41 \u2014 coupure g\u00e9n\u00e9rale demand\u00e9e par la r\u00e9gie. 22:44 \u2014 relais de galerie r\u00e9tabli. 22:46 \u2014 relais de biblioth\u00e8que r\u00e9tabli. 22:47 \u2014 relais du studio r\u00e9tabli sans ordre sign\u00e9. Les trois heures ont \u00e9t\u00e9 encercl\u00e9es au crayon. En bas de page : \u00ab Synchronisation : reprendre l\u2019heure du dernier relais, sans les deux-points : 2247 \u00bb. L\u2019encre est encore humide.'],
+    voice:['Transcription audio','Fichier captur\u00e9 \u00e0 23:17, au moment exact du lancement automatique. La voix ressemble \u00e0 celle d\u2019Unname, ralentie et \u00e9puis\u00e9e : \u00ab Si vous m\u2019entendez, ne descendez pas. Je suis d\u00e9j\u00e0 en bas. Ne coupez pas l\u2019image. Le direct a besoin d\u2019un dernier regard. \u00bb Avant la premi\u00e8re phrase, on distingue trois coups frapp\u00e9s depuis l\u2019int\u00e9rieur du micro. Apr\u00e8s la derni\u00e8re, une respiration r\u00e9pond.']
+  }[id];
+  clues.add(id);ui();save();milestoneEvents();
+  say(t[0],t[1],()=>{if(clues.has('symbol')&&clues.has('plan')&&clues.has('log')&&!flags.studio){say('Journal mis à jour','Tu as maintenant le sch\u00e9ma du circuit, le trajet des conduits et la s\u00e9quence de maintenance.\nLe verrou du studio attend le code de synchronisation : 2247.')}else popEvent()});
+}
+
+function openChest(){
+  if(!items.has('key_vitrine')){say('Coffre de la vitrine','Le coffre est scell\u00e9 sous la vitrine sud. La serrure est de laiton, petite, presque neuve.\nIl te faut la cl\u00e9 correspondante. Quelqu\u2019un a d\u00fb la cacher l\u00e0 o\u00f9 personne n\u2019allait plus : une pi\u00e8ce interdite du manoir.');return;}
+  flags.chestOpen=true;items.add('fusible');ui();save();
+  say('Coffre de la vitrine','La cl\u00e9 tourne sans r\u00e9sistance, comme si la serrure n\u2019attendait que le courant.\n\u00c0 l\u2019int\u00e9rieur, pas de tr\u00e9sor : un fusible de relais, retir\u00e9 du circuit la nuit de la coupure, et une \u00e9tiquette : \u00ab Panneau inf\u00e9rieur \u2014 remettre avant tout code. \u00bb\nLe verrou du sous-sol a un emplacement vide. Ce fusible est la pi\u00e8ce manquante.');
+}
+
+function go(d){
+  const enter=()=>{
+    room=d[0];pl.x=d[3]*S+16;pl.y=d[4]*S+16;ui();save();resetKeys();
+    if(room==='studio'&&!flags.studioSeen){flags.studioSeen=true;say('Voix dans les haut-parleurs',['\u2026Unname ?','Tu as r\u00e9tabli le circuit. Pourtant, le studio \u00e9tait cens\u00e9 \u00eatre hors tension.','Le direct a repris \u00e0 23 h 17. Quelqu\u2019un attend derri\u00e8re la cam\u00e9ra.'],()=>{milestoneEvents();popEvent()});}
+    else{milestoneEvents();popEvent()}
+  };
+  if(d[0]==='studio'){
+    if(!(clues.has('symbol')&&clues.has('plan')&&clues.has('log'))){
+      say('Verrou du studio',['Le panneau est hors tension. Il manque le sch\u00e9ma du circuit, le plan des conduits et le journal de maintenance.','Rassemble ces trois indices avant de tenter d\u2019ouvrir la porte.']);return;
+    }
+    if(!flags.studio){
+      askCode('VERROU DE SYNCHRONISATION','Le journal de maintenance donne l\u2019heure du dernier relais r\u00e9tabli, sans les deux-points.','2247',()=>{flags.studio=true;save();enter()},()=>say('Verrou du studio','Code incorrect. Le journal indique l\u2019heure \u00e0 laquelle le dernier relais a \u00e9t\u00e9 r\u00e9tabli.'));
+      return;
+    }
+    enter();return;
+  }
+  if(d[0]==='cellar'){
+    if(clues.size<7||!items.has('fusible')){
+      const miss=[];
+      if(clues.size<7)miss.push('r\u00e9unir les sept preuves (tu en as '+clues.size+')');
+      if(!items.has('fusible'))miss.push('remettre le fusible de relais dans le panneau \u2014 il dort dans le coffre de la galerie, la cl\u00e9 est cach\u00e9e dans le studio');
+      say('Verrou du sous-sol','Le panneau du verrou inf\u00e9rieur est mort. Il faut :\n\u2022 '+miss.join('\n\u2022 ')+'.\nEt m\u00eame avec tout cela, le code restera la date du ticket : jour, puis mois.');return;
+    }
+    askCode('VERROU INF\u00c9RIEUR','Le ticket de r\u00e9gie porte la date du premier enregistrement : jour, puis mois.','1710',enter,()=>say('Verrou inférieur','Code incorrect. Relis la date du ticket de r\u00e9gie : 17 octobre.'));
+    return;
+  }
+  enter();
+}
+
+let pending=[];
+function queueEvent(w,lines){pending.push({w,lines})}
+function popEvent(){if(!dialog&&pending.length){const e=pending.shift();say(e.w,e.lines)}}
+function milestoneEvents(){
+  if(clues.size>=2&&!seen.has('m2')){seen.add('m2');queueEvent('Le manoir',['Le lustre gr\u00e9sille au-dessus de toi. Dans un casque oubli\u00e9, une respiration compte doucement jusqu\u2019\u00e0 deux.','\u00ab Deux regards de plus, ce soir. \u00bb']);}
+  if(clues.size>=4&&!seen.has('m4')){seen.add('m4');queueEvent('Direct fant\u00f4me',['Un voyant rouge s\u2019allume dans le coin de ta vision et ne s\u2019\u00e9teint plus.\nSPECTATEURS : 2','Personne ne diffuse. Personne\u2026 sauf la maison. L\u2019enqu\u00eate avance, et elle te regarde avancer.']);}
+  if(clues.size>=6&&!seen.has('m6')){seen.add('m6');queueEvent('Direct fant\u00f4me',['SPECTATEURS : 5','Les invit\u00e9s ne t\u2019\u00e9coutent plus vraiment. Leur regard glisse vers les murs, comme s\u2019ils suivaient quelque chose derri\u00e8re toi.','Le direct a recommenc\u00e9 \u00e0 compter. Il attend que la boucle se referme.']);}
+  if(room==='cellar'&&!seen.has('mCellar')){seen.add('mCellar');queueEvent('Direct fant\u00f4me',['SPECTATEURS : 10','\u00ab Merci d\u2019\u00eatre rest\u00e9s jusqu\u2019\u00e0 la fin. \u00bb La voix de lapetitebeaute sort des haut-parleurs \u00e9teints, avec des ann\u00e9es entre chaque mot.']);}
+  save();
+}
+
+let kpState=null;
+function kpDisp(){document.getElementById('kpDisp').textContent=((kpState&&kpState.digits||'')+'____').slice(0,4).split('').join(' ')}
+function askCode(title,hint,code,onOk,onFail){
+  kpState={code,onOk,onFail,digits:''};
+  document.getElementById('kpTitle').textContent=title;
+  document.getElementById('kpHint').textContent=hint;
+  document.getElementById('kpErr').textContent='';
+  kpDisp();document.getElementById('keypad').classList.remove('hide');resetKeys();
+}
+function kpPress(n){if(!kpState)return;if(kpState.digits.length<4)kpState.digits+=n;document.getElementById('kpErr').textContent='';kpDisp()}
+function kpOk(){
+  if(!kpState||kpState.digits.length<4)return;
+  const st=kpState;document.getElementById('keypad').classList.add('hide');kpState=null;resetKeys();
+  if(st.digits===st.code){if(st.onOk)st.onOk()}
+  else if(st.onFail)st.onFail();
+}
+function kpCancel(){document.getElementById('keypad').classList.add('hide');kpState=null;resetKeys()}
+document.querySelectorAll('#kpGrid button').forEach(b=>{
+  b.onclick=()=>{const t=b.textContent;if(t==='C'){if(kpState){kpState.digits='';kpDisp()}}else if(t==='OK')kpOk();else kpPress(t)};
+});
+document.getElementById('kpX').onclick=kpCancel;
+
+function startEnding(){
+  flags.final=true;ui();save();ready=false;resetKeys();pending=[];
+  document.getElementById('liveName').textContent='Avec '+heroName+', dixi\u00e8me spectateur et dixi\u00e8me invit\u00e9.';
+  document.getElementById('endRecap').innerHTML='Registre sign\u00e9 : <b>'+heroName+'</b><br>Preuves r\u00e9unies : <b>'+clues.size+' / 7</b><br>Fusible de relais : remis. Circuit : referm\u00e9.';
+  document.getElementById('endS1').classList.remove('hide');
+  document.getElementById('endS2').classList.add('hide');
+  document.getElementById('endOv').classList.remove('hide');
+}
+document.getElementById('toEnd').onclick=()=>{document.getElementById('endS1').classList.add('hide');document.getElementById('endS2').classList.remove('hide')};
+document.getElementById('replay').onclick=()=>{try{localStorage.removeItem('unnameArchive2')}catch(e){}location.reload()};
+
+function ui(){
+  document.getElementById('loc').textContent='Lieu : '+maps[room].name;
+  document.getElementById('count').textContent=clues.size+' / 7 indices';
+  document.getElementById('bar').style.width=(clues.size/7*100)+'%';
+  document.getElementById('clues').innerHTML=clues.size?[...clues].map(k=>'<li>'+evidence[k]+'</li>').join(''):'<li>Aucun indice trouv\u00e9.</li>';
+  const inv=[...items].map(k=>itemsDb[k]).join(', ');
+  document.getElementById('inventory').textContent=inv||'Vide';
+  const step=flags.final?'Chapitre termin\u00e9. Le direct continue\u2026 et le dixi\u00e8me cadre porte ton nom.':
+    !seen.has('Unname')||(!clues.has('ticket')&&!clues.has('photo'))?'\u00c9tape 1/6 : parle \u00e0 Unname dans le hall, puis examine le ticket et la photographie.':
+    (!clues.has('tape')||!clues.has('symbol'))?'\u00c9tape 2/6 : dans la galerie, examine la cassette TEST 0 et le symbole invers\u00e9.':
+    (!clues.has('plan')||!clues.has('log'))?'\u00c9tape 3/6 : dans la biblioth\u00e8que, trouve le plan des conduits et le journal de maintenance.':
+    !flags.studio?'\u00c9tape 3/6 : avec le sch\u00e9ma, le plan et le journal, ouvre le studio avec le code de synchronisation (2247).':
+    (!clues.has('voice')||!items.has('key_vitrine'))?'\u00c9tape 4/6 : dans le studio, examine la transcription audio et prends la cl\u00e9 de la vitrine sur la r\u00e9gie.':
+    !flags.chestOpen?'\u00c9tape 5/6 : retourne \u00e0 la galerie et ouvre le coffre de la vitrine avec la cl\u00e9 : il contient le fusible du verrou du sous-sol.':
+    '\u00c9tape 6/6 : rejoins l\u2019escalier de service du studio, entre 1710 sur le verrou inf\u00e9rieur et confronte le R\u00e9gisseur.';
+  document.getElementById('goal').textContent=step;
+}
+
+function save(){try{localStorage.setItem('unnameArchive2',JSON.stringify({room,p:{x:pl.x,y:pl.y},clues:[...clues],items:[...items],flags,seen:[...seen],name:heroName}))}catch(e){}}
+function load(){try{let d=JSON.parse(localStorage.getItem('unnameArchive2'));if(d){room=d.room||'hall';pl.x=d.p.x;pl.y=d.p.y;(d.clues||[]).forEach(k=>clues.add(k));(d.items||[]).forEach(k=>items.add(k));Object.assign(flags,d.flags||{});(d.seen||[]).forEach(k=>seen.add(k));heroName=d.name||'';}}catch(e){}ui()}
+
+function move(dx,dy){
+  let nx=pl.x+dx,ny=pl.y+dy;
+  if(!wall(Math.floor(nx/S),Math.floor((pl.y-6)/S))&&!wall(Math.floor(nx/S),Math.floor((pl.y+6)/S)))pl.x=nx;
+  if(!wall(Math.floor((pl.x-6)/S),Math.floor(ny/S))&&!wall(Math.floor((pl.x+6)/S),Math.floor(ny/S)))pl.y=ny;
+}
+
+function act(){if(!ready)return;if(dialog){advance();return}let n=near();if(n)n.fn()}
+let last=0;
+function loop(t){
+  let dt=Math.min(35,t-last||16);last=t;frame++;
+  // Manettes : stick analogique, croix, A/B pour agir, Start pour le journal.
+  let gp=null;
+  if(navigator.getGamepads){for(const g of navigator.getGamepads()){if(g&&g.connected){gp=g;break}}}
+  const pb=i=>!!(gp&&gp.buttons[i]&&gp.buttons[i].pressed);
+  const ax=gp?(gp.axes[0]||0):0, ay=gp?(gp.axes[1]||0):0, TH=.4;
+  const pA=pb(0)||pb(1), pStart=pb(9);
+  if(ready){
+    if(pA&&!padPrevA)act();
+    if(pStart&&!padPrevStart&&!dialog)say('Journal d\u2019enqu\u00eate',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pi\u00e8ces.');
+  }
+  padPrevA=pA;padPrevStart=pStart;
+  if(ready&&!dialog){
+    let dx=0,dy=0;
+    if(K.ArrowLeft||K.a||K.A||K.q||K.Q||ax<-TH||pb(14))dx--;
+    if(K.ArrowRight||K.d||K.D||ax>TH||pb(15))dx++;
+    if(K.ArrowUp||K.w||K.W||K.z||K.Z||ay<-TH||pb(12))dy--;
+    if(K.ArrowDown||K.s||K.S||ay>TH||pb(13))dy++;
+    if(dx&&dy){dx*=.707;dy*=.707}
+    if(dx||dy)move(dx*2.3*dt/16,dy*2.3*dt/16);
+    movingNow=!!(dx||dy);
+  }else movingNow=false;
+  draw();
+  requestAnimationFrame(loop);
+}
+
+window.addEventListener('keydown',e=>{
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+  if(e.key==='Escape'&&dialog){dialog=null;resetKeys();document.getElementById('dlg').classList.remove('show');return}
+  if(['e','E','Enter',' '].includes(e.key)&&!K[e.key])act();
+  if((e.key==='j'||e.key==='J')&&ready&&!dialog)say('Journal d\u2019enqu\u00eate',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pi\u00e8ces, puis reviens : les souvenirs des invit\u00e9s \u00e9voluent.');
+  K[e.key]=true;
+});
+window.addEventListener('keyup',e=>K[e.key]=false);
+
+document.querySelectorAll('[data-k]').forEach(b=>{
+  let k=b.dataset.k;
+  b.onpointerdown=e=>{e.preventDefault();K[k]=true};
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,()=>K[k]=false));
+});
+
+document.getElementById('tactE').onclick=()=>act();
+document.getElementById('journal').onclick=()=>{if(ready)say('Journal d\u2019enqu\u00eate',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pi\u00e8ces.')};
+document.getElementById('reset').onclick=()=>{if(confirm('Effacer la sauvegarde et recommencer ?')){localStorage.removeItem('unnameArchive2');location.reload()}};
+
+function scrollToGame(){const el=document.querySelector('.screen');if(el)el.scrollIntoView({block:'center',behavior:'smooth'})}
+function startGame(){
+  heroName=(document.getElementById('pname').value||'').trim().slice(0,14)||'Invit\u00e9';
+  document.getElementById('nameOv').classList.add('hide');
+  ready=true;save();scrollToGame();
+  say('Unname',['Bienvenue \u00e0 Valombre, '+heroName+'. On devait passer une soir\u00e9e communautaire, rien de plus.','\u00c0 23 h 17, le direct s\u2019est lanc\u00e9 sans cam\u00e9ra active. Depuis, les portes se verrouillent les unes apr\u00e8s les autres.','Explore le manoir, interroge les invit\u00e9s et recoupe les sept preuves. Reviens leur parler apr\u00e8s chaque d\u00e9couverte : ils se souviennent de nouvelles choses. Si une voix t\u2019appelle depuis l\u2019\u00e9cran, ne lui r\u00e9ponds pas.'],()=>{seen.add('intro');save()});
+}
+document.getElementById('startBtn').onclick=startGame;
+document.getElementById('pname').addEventListener('keydown',e=>{if(e.key==='Enter')startGame()});
+
+load();
+if(heroName){
+  document.getElementById('nameOv').classList.add('hide');ready=true;scrollToGame();
+  if(flags.final)startEnding();
+}else{
+  document.getElementById('pname').focus();
+}
+requestAnimationFrame(loop);
+})();
+</script></body></html>

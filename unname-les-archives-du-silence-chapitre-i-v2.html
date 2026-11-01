@@ -1,8 +1,9 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unname — Les Archives du Silence</title>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Unname — Les Archives du Silence</title>
 <style>
 *{box-sizing:border-box}
 :root{--bg:#070c14;--panel:#0f1929;--panel2:#0c1522;--line:#2b3f56;--line2:#3a5270;--mint:#9ce6c8;--red:#d45b68;--txt:#edf4fa;--dim:#a8bad0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;touch-action:manipulation}
+*{-webkit-tap-highlight-color:transparent}
 body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;color:var(--txt);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(1200px 700px at 50% -10%,#132038 0%,#0a1220 45%,#060a11 100%)}
 main{width:min(1120px,100%)}
 header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
@@ -11,7 +12,7 @@ h1 span{color:var(--mint);text-shadow:0 0 18px #9ce6c855}
 header p{color:var(--dim);margin:4px 0 14px;font-size:13px;letter-spacing:.03em}
 .layout{display:grid;grid-template-columns:1fr 280px;gap:14px}
 .screen{background:linear-gradient(160deg,#152236,#0d1626);border:1px solid var(--line2);border-radius:16px;padding:10px;box-shadow:0 24px 60px #00000080,inset 0 1px 0 #ffffff12}
-canvas{display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:10px;background:#0a0f18;outline:none}
+canvas{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:10px;background:#0a0f18;outline:none}
 .panel{background:linear-gradient(165deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 12px 30px #00000059,inset 0 1px 0 #ffffff0d}
 .panel h2{font-size:11px;color:var(--mint);letter-spacing:.22em;text-transform:uppercase;margin:0 0 9px;font-weight:700}
 p{line-height:1.5;margin:6px 0}
@@ -23,16 +24,14 @@ button{background:linear-gradient(180deg,#21395a,#182c46);color:#eaf6f0;border:1
 button:hover{filter:brightness(1.25);box-shadow:0 0 14px #9ce6c833;transform:translateY(-1px)}
 button:active{transform:translateY(1px)}
 ul{margin:6px 0;padding-left:18px}
-#dlg{display:none;position:fixed;inset:0;background:#02050cd9;align-items:end;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+#dlg{z-index:12;display:none;position:fixed;inset:0;background:#02050cd9;align-items:end;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
 #dlg.show{display:flex}
-.box{width:min(820px,100%);background:linear-gradient(170deg,#101d2f,#0b1524);border:1.5px solid var(--mint);border-radius:16px;padding:20px 22px;box-shadow:0 0 0 5px #000a,0 0 40px #9ce6c81c;animation:pop .18s ease-out}
+.box{max-height:82vh;max-height:82dvh;overflow-y:auto;position:relative;width:min(820px,100%);background:linear-gradient(170deg,#101d2f,#0b1524);border:1.5px solid var(--mint);border-radius:16px;padding:20px 22px;box-shadow:0 0 0 5px #000a,0 0 40px #9ce6c81c;animation:pop .18s ease-out}
 @keyframes pop{from{transform:translateY(14px);opacity:0}}
 .who{color:var(--mint);font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
 .words{font-size:17px;line-height:1.55;white-space:pre-line;margin:10px 0}
 .hint{text-align:right;color:#8ba0b8;font-size:12px;animation:blink 1.6s infinite}
-#touch{display:none;grid-template-columns:repeat(3,52px);gap:5px;justify-content:center;margin-top:10px}
-#touch button{font-size:17px;padding:12px 0}
-.ov{position:fixed;inset:0;background:#04060cf0;display:flex;align-items:center;justify-content:center;z-index:11;padding:18px;backdrop-filter:blur(3px)}
+.ov{overflow-y:auto;-webkit-overflow-scrolling:touch;position:fixed;inset:0;background:#04060cf0;display:flex;align-items:center;justify-content:center;z-index:11;padding:18px;backdrop-filter:blur(3px)}
 .hide{display:none!important}
 .nameBox,.kpBox{width:min(480px,94%);background:linear-gradient(165deg,#101d2f,#0a1322);border:1.5px solid var(--mint);border-radius:16px;padding:26px;text-align:center;box-shadow:0 0 50px #9ce6c81c,0 30px 60px #000a}
 .nameBox h2{margin:0 0 8px;color:var(--mint);letter-spacing:.14em;font-size:15px}
@@ -59,11 +58,43 @@ ul{margin:6px 0;padding-left:18px}
 .endBox button{margin-top:16px;font-size:15px;padding:12px 26px;border-color:var(--red);background:linear-gradient(180deg,#4a2230,#331821)}
 .viewers{font:14px monospace;color:var(--mint);margin:10px 0}
 @media(max-width:780px){.layout{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
-@media(max-width:520px){aside{display:block}#touch{display:grid}body{align-items:flex-start}}
+@media(max-width:520px){aside{display:block}body{align-items:flex-start;padding:8px}.panel{padding:12px}.words{font-size:16px}.box{padding:16px}}
+.ov>div{margin:auto}
+.tc{display:none}
+#touch{display:none;justify-content:space-between;align-items:flex-end;gap:12px;padding:12px 4px 4px;-webkit-user-select:none;user-select:none;touch-action:none;-webkit-touch-callout:none}
+body.touch #touch{display:flex}
+body.touch .kb{display:none}
+body.touch .tc{display:inline}
+#dpad{display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(3,60px);gap:4px}
+#dpad button,#tbtns button{margin:0;padding:0;touch-action:none;border-radius:16px;font-size:22px;transition:none;transform:none!important}
+#dpad button.on,#tbtns button.on{filter:brightness(1.7);box-shadow:0 0 16px #9ce6c866}
+#tbtns{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#tactE{width:96px;height:96px;border-radius:50%;font-weight:800;font-size:15px;letter-spacing:.06em;border-color:var(--mint)}
+#tsm{display:flex;gap:8px}
+#tsm button{width:52px;height:46px;font-size:18px}
+#dlgSkip{display:none;margin:8px 0 0;float:left;font-size:12px;padding:6px 12px}
+body.touch #dlgSkip{display:inline-block}
+body.touch .kpGrid button{min-height:58px;font-size:22px}
+@media(orientation:landscape){
+  body.touch #touch{position:fixed;left:0;right:0;bottom:0;z-index:9;pointer-events:none;padding:10px calc(16px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left))}
+  body.touch #touch>*{pointer-events:auto}
+  body.touch #dpad button,body.touch #tbtns button{opacity:.8}
+}
+@media(orientation:landscape) and (max-height:560px){
+  body.touch{display:block;padding:6px}
+  body.touch header{display:none}
+  body.touch .layout{grid-template-columns:1fr}
+  body.touch .screen{width:min(100%,calc((100vh - 14px)*1.5625));width:min(100%,calc((100dvh - 14px)*1.5625));margin:0 auto;padding:4px}
+  body.touch aside{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  #dpad{grid-template-columns:repeat(3,54px);grid-template-rows:repeat(3,54px)}
+  #tactE{width:84px;height:84px}
+  .box{max-height:70vh;max-height:70dvh;padding:12px 16px}.words{font-size:15px;margin:6px 0}
+}
+@media(pointer:coarse){button{min-height:40px}}
 </style></head><body><main><header><div><h1>UNNAME — <span style="color:#9ce6c8">LES ARCHIVES DU SILENCE</span></h1><p>Enquête horrifique 2D • Manoir de Valombre • Chapitre I : Le direct fantôme</p></div></header>
-<div class="layout"><div><div class="screen"><canvas id="game" width="800" height="512" tabindex="0"></canvas></div><div id="touch"><button data-k="ArrowUp" style="grid-column:2">▲</button><button data-k="ArrowLeft">◀</button><button data-k="ArrowDown">▼</button><button data-k="ArrowRight">▶</button><button id="tactE" style="grid-column:1/4">E — AGIR</button></div><section class="panel" style="margin-top:10px"><h2>Commandes</h2><span class="key">Flèches / ZQSD / WASD</span><span class="key">E / Entrée : agir</span><span class="key">J : journal</span><span class="key">Y : récapitulatif</span><span class="key">Manette : stick/croix, A = agir, Y = récap, Start = journal</span><p class="muted">Un doute sur la suite ? Rappel : l'objectif en haut à droite et le récap (touche Y de la manette/clavier ou bouton journal) résument toujours la prochaine étape.</p></section></div>
+<div class="layout"><div><div class="screen"><canvas id="game" width="800" height="512" tabindex="0"></canvas></div><div id="touch"><div id="dpad"><button data-k="ArrowUp" style="grid-area:1/2" aria-label="Haut">▲</button><button data-k="ArrowLeft" style="grid-area:2/1" aria-label="Gauche">◀</button><button data-k="ArrowRight" style="grid-area:2/3" aria-label="Droite">▶</button><button data-k="ArrowDown" style="grid-area:3/2" aria-label="Bas">▼</button></div><div id="tbtns"><div id="tsm"><button id="tJ" aria-label="Journal">📓</button><button id="tY" aria-label="Récapitulatif">❔</button></div><button id="tactE">AGIR</button></div></div><section class="panel" style="margin-top:10px"><h2>Commandes</h2><span class="kb"><span class="key">Flèches / ZQSD / WASD</span><span class="key">E / Entrée : agir</span><span class="key">J : journal</span><span class="key">Y : récapitulatif</span><span class="key">Manette : stick/croix, A = agir, Y = récap, Start = journal</span></span><span class="tc"><span class="key">Croix : se déplacer</span><span class="key">AGIR : parler / examiner</span><span class="key">📓 journal</span><span class="key">❔ récap</span><span class="key">Touche le texte pour continuer</span></span><p class="muted">Un doute sur la suite ? Le récapitulatif résume toujours la prochaine étape.</p></section></div>
 <aside><section class="panel"><h2>Objectif</h2><p id="goal">Parle à Unname et commence les recherches.</p><p class="muted" id="loc">Lieu : Hall</p><p class="muted" id="clockP"></p><div class="bar"><i id="bar"></i></div><p class="muted" id="count">0 / 7 indices</p></section><section class="panel"><h2>Journal d'enquête</h2><ul id="clues" class="muted"><li>Aucun indice trouvé.</li></ul><button id="journal">Lire le journal (J)</button><button id="reset">Nouvelle partie</button></section><section class="panel"><h2>Les invités</h2><ul class="muted"><li>Unname — maître du jeu</li><li>tom_hagane, simon_shinji, kataneo21</li><li>eltise, S4tha, unfamiliary</li><li>Drunkman et lapetitebeaute</li><li>Le Régisseur — présence cachée</li></ul></section><section class="panel"><h2>Inventaire</h2><p id="inventory" class="muted">Vide</p></section></div></main>
-<div id="dlg"><div class="box"><div class="who" id="who"></div><div class="words" id="words"></div><div class="hint">E / Entrée / Espace pour continuer</div></div></div>
+<div id="dlg"><div class="box"><div class="who" id="who"></div><div class="words" id="words"></div><div class="hint"><span class="kb">E / Entrée / Espace pour continuer</span><span class="tc">Touche pour continuer ▸</span></div><button id="dlgSkip">Passer ▸▸</button></div></div>
 <div id="keypad" class="ov hide"><div class="kpBox"><div class="kpTitle" id="kpTitle"></div><div class="kpHint" id="kpHint"></div><div class="kpDisp" id="kpDisp">_ _ _ _</div><div class="kpGrid" id="kpGrid"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button id="kpC">C</button><button>0</button><button id="kpOK">OK</button></div><div class="kpErr" id="kpErr"></div><button class="kpCancel" id="kpX">Annuler</button></div></div>
 <div id="nameOv" class="ov"><div class="nameBox"><h2>MANOIR DE VALOMBRE &mdash; <span id="introClock"></span></h2><div class="story">
 Bienvenue. Tu arrives au manoir de Valombre, &agrave; l&rsquo;invitation d&rsquo;<b>Unname</b> pour un stream un peu sp&eacute;cial : <b>une rencontre IRL avec les habitu&eacute;s du canal</b>, en direct depuis un vieux manoir.<br><br>
@@ -105,6 +136,14 @@ const hm2=d=>pad(d.getHours())+':'+pad(d.getMinutes());
 const dateFr=d=>d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear();
 const launchD=new Date(Date.now()-13*60000);
 const LT=()=>hm(launchD);
+let Z=1,HS=1;
+const isTouch=()=>document.body.classList.contains('touch');
+function layoutScale(){const w=c.clientWidth||800;Z=w<420?1.9:w<500?1.6:w<640?1.25:w<720?1.1:1;HS=Math.min(2,Math.max(1,700/w));}
+const setTouch=()=>{document.body.classList.add('touch');layoutScale()};
+if(matchMedia('(pointer:coarse)').matches||(navigator.maxTouchPoints>0&&!matchMedia('(pointer:fine)').matches))setTouch();
+window.addEventListener('touchstart',setTouch,{once:true,passive:true});
+window.addEventListener('resize',layoutScale);window.addEventListener('orientationchange',()=>{resetKeys();setTimeout(layoutScale,150)});
+if(window.ResizeObserver)new ResizeObserver(layoutScale).observe(c);layoutScale();
 const okTime=v=>[-1,0,1].some(m=>codeTime(new Date(Date.now()+m*60000))===v);
 const okDate=v=>v===codeDate(new Date());
 const guests=['tom_hagane','simon_shinji','kataneo21','eltise','S4tha','unfamiliary','Drunkman','lapetitebeaute'];
@@ -341,6 +380,8 @@ function drawAmbient(){
 function draw(){
   let m=maps[room];
   x.font='10px monospace';
+  x.save();
+  if(Z>1){const cx=Math.max(0,Math.min(800-800/Z,pl.x-400/Z)),cy=Math.max(0,Math.min(512-512/Z,pl.y-256/Z));x.scale(Z,Z);x.translate(-cx,-cy);}
   drawFloor(m);
   drawRoomDetails();
   for(let it of m.items){
@@ -351,16 +392,19 @@ function draw(){
   if(flags.final&&room==='cellar')for(const g of cast)person(g[1]*S+16,g[2]*S+16,g[3],false,g[0]);
   person(pl.x,pl.y,'#9ce6c8',false,heroName);
   drawAmbient();
+  x.restore();
+  x.save();x.scale(HS,HS);
   x.font='13px monospace';
   x.fillStyle='#07111de6';x.fillRect(10,10,252,30);
   x.fillStyle='#9ce6c8';x.fillRect(10,10,4,30);
   x.fillStyle='white';x.fillText(m.name,24,30);
-  x.fillStyle='#07111de6';x.fillRect(10,44,252,22);x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(dateFr(new Date())+' • '+hm(new Date()),24,59);x.font='13px monospace';
+  x.fillStyle='#07111de6';x.fillRect(10,44,252,22);x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(dateFr(new Date())+' • '+hm(new Date()),24,59);x.font='13px monospace';x.restore();
   let n=near();
   if(n){
+    x.save();x.translate(400,512);x.scale(HS,HS);x.translate(-400,-512);
     x.fillStyle='#07111ddd';x.fillRect(235,468,330,30);
     x.strokeStyle='#9ce6c8';x.strokeRect(235,468,330,30);
-    x.fillStyle='white';x.textAlign='center';x.fillText('E : '+n.label,400,488);x.textAlign='left';
+    x.fillStyle='white';x.textAlign='center';x.fillText((isTouch()?'AGIR : ':'E : ')+n.label,400,488);x.textAlign='left';x.restore();
   }
   if(flags.studio||room==='cellar'){
     x.fillStyle='#bb5368';x.globalAlpha=.06+Math.sin(frame/12)*.04;
@@ -374,12 +418,13 @@ function draw(){
   let viewers=clues.size<4?0:Math.min(9,clues.size-3+(flags.studio?1:0)+(flags.chestOpen?1:0));
   if(room==='cellar')viewers=10;
   if(viewers>0){
+    x.save();x.translate(800,0);x.scale(HS,HS);x.translate(-800,0);
     const blink=frame%50<25;
     x.fillStyle='#bb5368';x.beginPath();x.arc(726,24,6,0,Math.PI*2);x.fill();
     if(blink){x.fillStyle='#fff';x.beginPath();x.arc(726,24,2,0,Math.PI*2);x.fill()}
     x.fillStyle='#07111ddd';x.fillRect(738,14,54,20);
     x.fillStyle=blink?'#ffd7dc':'#bb5368';x.font='bold 12px monospace';x.fillText('LIVE',742,28);
-    x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(viewers+' spec.',660,28);
+    x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(viewers+' spec.',660,28);x.restore();
     if(frame%140<4){x.fillStyle='#ffffff14';for(let i=0;i<4;i++){const gy=(frame*37+i*131)%512;x.fillRect(0,gy,800,2)}}
     if(frame%210<10){x.fillStyle='#bb536810';x.fillRect(0,(frame*53)%400,800,3)}
   }
@@ -705,12 +750,21 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('keyup',e=>K[e.key]=false);
 
 document.querySelectorAll('[data-k]').forEach(b=>{
-  let k=b.dataset.k;
-  b.onpointerdown=e=>{e.preventDefault();K[k]=true};
-  ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,()=>K[k]=false));
+  const k=b.dataset.k;
+  b.addEventListener('pointerdown',e=>{e.preventDefault();try{b.setPointerCapture(e.pointerId)}catch(_){}K[k]=true;b.classList.add('on')});
+  const up=()=>{K[k]=false;b.classList.remove('on')};
+  ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,up));
+  b.addEventListener('contextmenu',e=>e.preventDefault());
 });
-
-document.getElementById('tactE').onclick=()=>act();
+const tapBtn=(id,fn)=>{const b=document.getElementById(id);
+  b.addEventListener('pointerdown',e=>{e.preventDefault();b.classList.add('on');fn()});
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,()=>b.classList.remove('on')));
+  b.addEventListener('contextmenu',e=>e.preventDefault());};
+tapBtn('tactE',()=>act());
+tapBtn('tJ',()=>{if(ready&&!dialog&&!kpState)document.getElementById('journal').click()});
+tapBtn('tY',()=>{if(ready&&!dialog&&!kpState)showRecap()});
+document.getElementById('dlg').addEventListener('click',e=>{if(e.target.id==='dlgSkip')return;advance()});
+document.getElementById('dlgSkip').addEventListener('click',e=>{e.stopPropagation();if(dialog){di=dialog.lines.length-1;advance()}});
 document.getElementById('journal').onclick=()=>{if(ready)say('Journal d’enquête',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pièces.')};
 document.getElementById('reset').onclick=()=>{if(confirm('Effacer la sauvegarde et recommencer ?'))resetGame()};
 

@@ -98,7 +98,7 @@ body.touch .kpGrid button{min-height:58px;font-size:22px}
 <div id="keypad" class="ov hide"><div class="kpBox"><div class="kpTitle" id="kpTitle"></div><div class="kpHint" id="kpHint"></div><div class="kpDisp" id="kpDisp">_ _ _ _</div><div class="kpGrid" id="kpGrid"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button id="kpC">C</button><button>0</button><button id="kpOK">OK</button></div><div class="kpErr" id="kpErr"></div><button class="kpCancel" id="kpX">Annuler</button></div></div>
 <div id="nameOv" class="ov"><div class="nameBox"><h2>MANOIR DE VALOMBRE &mdash; <span id="introClock"></span></h2><div class="story">
 Bienvenue. Tu arrives au manoir de Valombre, &agrave; l&rsquo;invitation d&rsquo;<b>Unname</b> pour un stream un peu sp&eacute;cial : <b>une rencontre IRL avec les habitu&eacute;s du canal</b>, en direct depuis un vieux manoir.<br><br>
-Mais &agrave; ton arriv&eacute;e, rien ne se passe comme pr&eacute;vu. <span class="warn">Le personnel a disparu, les cam&eacute;ras sont d&eacute;branch&eacute;es&hellip; et &agrave; <span id="launchT"></span>, un direct s&rsquo;est lanc&eacute; tout seul, depuis une cha&icirc;ne qui n&rsquo;existe plus.</span><br><br>
+Mais &agrave; ton arriv&eacute;e, rien ne se passe comme pr&eacute;vu. <span class="warn">des viewers ont disparu, les cam&eacute;ras sont d&eacute;branch&eacute;es&hellip; et &agrave; <span id="launchT"></span>, un direct s&rsquo;est lanc&eacute; tout seul, depuis une cha&icirc;ne qui n&rsquo;existe plus.</span><br><br>
 Signe le registre des invit&eacute;s. <b>Le manoir se souvient de ceux qui inscrivent leur nom.</b>
 </div><input id="pname" maxlength="14" placeholder="Ton nom" autocomplete="off"><button id="startBtn">Entrer dans le manoir</button></div></div>
 <div id="endOv" class="ov hide">
@@ -472,19 +472,19 @@ function talk(n){
   if(id==='Unname'){
     if(!seen.has('Unname')){seen.add('Unname');save();say('Unname',[
       'Tu es enfin là, '+heroName+'. On devait passer une soirée IRL tranquille avec la communauté… et rien, ce soir, ne se passe comme prévu.',
-      'À '+LT()+', un direct s’est lancé depuis une chaîne qui n’existe pas. J’ai essayé de couper le courant : le voyant est resté allumé. Les portes se verrouillent les unes après les autres.',
-      'Je n’ai pas de plan, je ne vais pas faire semblant. J’ai juste l’impression que ce manoir garde tout : les papiers, les jours, les heures. Et qu’il attend que quelqu’un fasse attention.'
+      'À '+LT()+', un direct s’est lancé depuis une chaîne qui n’existe plus. J’ai essayé de couper le courant : le voyant est resté allumé. Les portes se verrouillent les unes après les autres.',
+      'Je n’ai pas de plan, je ne vais pas faire semblant. J’ai juste l’impression que ce manoir garde tout : les gens, les jours, les heures. Et qu’il attend que quelqu’un fasse quelque chose.'
     ]);}
     else if(flags.chestOpen)say('Unname',['Un fusible… Quelqu’un l’a rangé là pour qu’on le trouve, ou pour qu’on ne le trouve jamais.','Le bas de la maison respire plus fort depuis que le courant circule. Ne me demande pas ce que j’en pense.']);
     else if(flags.studio)say('Unname',['Tu as ouvert le studio. Je n’y serais pas entré seul.','Certaines choses ont été posées là pour toi, pas pour moi. Je te laisse regarder.']);
     else if(has('voice'))say('Unname',['La transcription dit « je suis déjà en bas ». Ce n’est pas ma voix… ou alors une version de moi qui a trop répété.']);
-    else say('Unname',['Je n’ai rien de plus à t’offrir que mes oreilles. Parle aux autres : chacun entend quelque chose de différent.','Et si quelqu’un te dit qu’il se souvient parfaitement de cette nuit, regarde l’heure.']);
+    else say('Unname',['Je n’ai rien de plus à t’offrir que mes oreilles. Parle aux autres : chacun entend quelque chose de différent.','Et si quelqu’un te dit qu’il se souvient parfaitement de cette nuit, note l’heure.']);
     return;
   }
   if(id==='Le Régisseur'){
     if(has('ticket')&&has('photo')&&has('tape')&&has('voice')&&has('symbol')&&has('plan')&&has('log')){
       say('Le Régisseur',[
-        'Tu as reconstitué tout le dossier : le ticket, la photo, la cassette, le symbole, le plan, le journal, la transcription. Et tu as même remis le fusible dans le panneau. Chapeau, '+heroName+'.',
+        'Tu as reconstitué tout le dossier. Et tu as même remis le fusible dans le panneau. Chapeau, '+heroName+'.',
         'Alors je peux te dire la vérité. Rien de tout cela n’était dangereux : le direct fantôme, la coupure, les relais remis en route, ma voix dans le casque… tout était écrit. Par Unname. Avec toute la communauté.',
         'Tu étais l’invité surprise du stream. Le dixième invité : celui dont le cadre est resté vide dans la galerie, celui qui signerait le registre ce soir sans rien soupçonner.',
         'Et maintenant… écoute. Des pas descendent l’escalier de service.'
@@ -496,25 +496,25 @@ function talk(n){
   }
   const stories={
     'tom_hagane':{
-      0:['Mes mains sont moites. Depuis '+LT()+', mon casque grésille tout seul.','J’entends un souffle, puis des bips : quatre petites notes, toujours les mêmes. Comme quelqu’un qui compose quelque chose.'],
-      1:['Les bips reviennent derrière la porte du studio. Toujours quatre notes, jamais cinq.','Étrange : ils ne sonnent pas pareil d’une minute à l’autre. Comme si cette porte écoutait une horloge.'],
-      2:['Des bips plus graves viennent d’en bas, maintenant. Quatre notes aussi.','Ceux-là ne changent qu’une fois par jour, je crois. Comme un calendrier qui tousse.']},
+      0:['Mes mains sont moites. Depuis '+LT()+', mon casque grésille tout seul.','J’entends un souffle, puis des tics, toujours les mêmes. Comme une sorte de trotteuse.'],
+      1:['Les tics  reviennent derrière la porte du studio.','Étrange : comme si on écoutait une montre.'],
+      2:['Des tics plus graves chaques minutes chaque heures d’en bas, maintenant.',']},
     'simon_shinji':{
-      0:['Je me sens observé. J’entends des notifications de chat alors que personne n’a de téléphone allumé.','Le compteur du direct grimpe quand tu avances. Je ne sais pas ce qu’il compte.'],
+      0:['Je me sens observé. J’entends des notifications de chat alors que personne n’a de téléphone allumé.','Le compteur de viewer du direct grimpe quand tu avances. Je ne sais pas ce qu’il compte.'],
       1:['Le chat répète en boucle « maintenant ! maintenant ! ». Je ne sais pas de quoi il parle, mais il a l’air pressé.','Chaque fois que je croise l’horloge du manoir, j’ai l’impression qu’elle me répond.'],
-      2:['Le chat s’est tu d’un coup. Je n’entends plus que des chiffres chuchotés, comme on les lit sur un calendrier.','Ça ne vient d’aucune pièce. Ça vient de ce soir.']},
+      2:['Le chat s’est tu d’un coup. Je n’ai plus que des chiffres chuchotés.',']},
     'kataneo21':{
-      0:['Ces portraits me regardent, je n’exagère pas. J’entends une voix compter derrière les murs, jusqu’à dix, puis recommencer.','Je me sens ridicule d’avoir peur d’un tableau. Mais ils sont dix, ces cadres, et un seul est vide.'],
-      1:['Clac… clac… clac, puis un silence. Tu l’entends, ce bruit de relais ?','Toujours trois. Comme s’ils se réveillaient l’un après l’autre, et que le dernier comptait plus que les autres.'],
-      2:['Le coffre sous la vitrine vibre comme un cœur. Personne n’y a touché.','Ce qui l’ouvre n’est pas là où on le cherche d’habitude. Je n’en dirai pas plus.']},
+      0:['Ces portraits me regardent, je n’exagère pas. J’entends une voix compter derrière les murs, jusqu’à 60, puis recommencer.','Je me sens ridicule d’avoir peur d’un tableau. Mais ils sont dix, ces cadres, et un seul est vide.'],
+      1:['Clac… clac… clac, puis un silence. Tu l’entends, ce bruit de relais ?','],
+      2:['Le coffre sous la vitrine vibre comme un cœur. Personne n’y a touché.','Ce qui l’ouvre n’est pas là. Je n’en sait pas plus.']},
     'eltise':{
       0:['Je ne suis pas peureuse d’habitude, mais j’entends des pas au-dessus de nous alors que l’étage est condamné. J’ai le ventre noué.','Et ce dixième cadre, vide, qui attend quelqu’un qui n’est pas encore arrivé.'],
-      1:['Les pas se sont arrêtés. J’entends maintenant des pages qu’on tourne, du côté de la bibliothèque.','Je me sens comme dans une salle d’attente : tout le monde regarde l’heure.'],
-      2:['Un bourdonnement : le courant. Puis un petit clic sec, comme un fusible qu’on met à l’abri.','Je crois que quelque chose a été rangé en lieu sûr. Pas ici.']},
+      1:['Les pas se sont arrêtés. J’entends maintenant des pages qu’on tourne, du côté de la bibliothèque.','Je me sens comme dans une salle d’attente : tout le monde regarde la pendule.'],
+      2:['Un bourdonnement : le courant. Puis un petit clic sec, comme un fusible qu’on remonte.','Je crois que quelque chose a été rangé en lieu sûr mais pas ici.']},
     'S4tha':{
       0:['Je me sens épiée entre ces étagères. J’entends des pages tourner, un registre qu’on feuillette tout seul.','Il y a ici des choses qui n’ont rien à faire dans une bibliothèque.'],
       1:['J’entends un tic-tac, mais ce n’est pas une horloge : quelqu’un écrit des heures à la main, ligne après ligne.','Ce manoir ne retient que ce qu’il vient de vivre. Le reste, il l’oublie.'],
-      2:['Le studio a repris vie : j’entends des haut-parleurs qui toussent. Je n’aime vraiment pas ça.','Là-bas, tout parle d’aujourd’hui. Pas d’hier.']},
+      2:['Le studio a pris vie : j’entends des haut-parleurs qui toussent. Je n’aime vraiment pas ça.','Là-bas, tout parle d’aujourd’hui. Pas d’hier.']},
     'unfamiliary':{
       0:['Honnêtement, ça me met mal à l’aise, et c’est ce qui m’énerve. Ce que j’entends surtout, c’est ce que je n’entends pas : onze secondes de rien dans le direct.','Le blanc finit toujours au moment où quelqu’un regarde l’heure.'],
       1:['Je me sens mieux depuis que je pense à un montage. Mais un montage a un horodatage, et ici il bouge tout seul.','Si on arrive trop tard, le panneau se moque de nous.'],
@@ -525,12 +525,12 @@ function talk(n){
       2:['J’ai failli partir en courant. Sur le prompteur, des mots se sont écrits tout seuls, et une voix répète une seule phrase dans les haut-parleurs.','Elle dit « je suis déjà en bas ». Ce n’est pas la voix de celui qu’on croit.']}
   };
   const again={
-    'tom_hagane':'Les bips ne s’arrêtent pas. Je n’arrive plus à les écouter en paix.',
+    'tom_hagane':'Les tics  ne s’arrêtent pas. Je n’arrive plus à les écouter en paix. Je ne veut plus entendre les secondes',
     'simon_shinji':'Le compteur de spectateurs grimpe pendant que tu avances. Moi, j’essaie juste de ne pas trembler.',
     'kataneo21':'Presque toutes les lumières sont allumées. Je sens que la salle d’en bas va nous réserver quelque chose.',
     'eltise':'Le dixième cadre attend un nom. Tu le connais déjà, je crois… mais ce n’est pas à moi de le dire.',
-    'S4tha':'Les murmures continuent. Tout pointe vers le même couloir : celui qui descend.',
-    'unfamiliary':'Onze secondes de blanc, dix silhouettes. Je préfère ne plus y penser.',
+    'S4tha':'Les murmures continuent. Tout pointe vers la pendule sans trotteuse.',
+    'unfamiliary':'De longueq minutes de blanc, des heures sans bruit. Je préfère ne plus y penser.',
     'Drunkman':'Je ne sais pas ce que je préfère : ne pas bouger, ou te regarder avancer.',
     'lapetitebeaute':'La voix dans les haut-parleurs répète toujours la même phrase. Je n’ose plus l’écouter.'
   };
@@ -784,7 +784,7 @@ function startGame(){
   document.getElementById('pname').blur();
   document.getElementById('nameOv').classList.add('hide');
   ready=true;save();scrollToGame();
-  say('Unname',['Bienvenue à Valombre, '+heroName+'. Rien ne se passe comme prévu ce soir : un direct fantôme, des portes qui se verrouillent…','Je ne sais pas ce qui nous attend. Ouvre les yeux, tends l’oreille, parle à tout le monde.','Et si quelque chose te semble familier, c’est peut-être juste sous ton nez. Bonne soirée.'],()=>{seen.add('intro');save()});
+  say('Unname',['Bienvenue à Valombre, '+heroName+'. Rien ne se passe comme prévu ce soir : un direct fantôme, des portes qui se verrouillent…','Je ne sais pas ce qui se passe. La chaine est indisponible, le dernier invité va arriver.'],()=>{seen.add('intro');save()});
 }
 document.getElementById('startBtn').onclick=startGame;
 document.getElementById('pname').addEventListener('keydown',e=>{if(e.key==='Enter')startGame()});

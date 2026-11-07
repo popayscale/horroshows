@@ -55,6 +55,7 @@ ul{margin:6px 0;padding-left:18px}
 .endBox h2{font-size:clamp(22px,5vw,34px);margin:16px 0 6px;color:#fff;letter-spacing:.04em}
 .endBox .sub{color:#e8b4bc;font-size:18px;margin:4px 0}
 .endBox p{color:#b6c6d8;font-size:15px;line-height:1.65}
+.endBox a{color:var(--mint);text-decoration:underline}
 .endBox button{margin-top:16px;font-size:15px;padding:12px 26px;border-color:var(--red);background:linear-gradient(180deg,#4a2230,#331821)}
 .viewers{font:14px monospace;color:var(--mint);margin:10px 0}
 @media(max-width:780px){.layout{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
@@ -71,7 +72,7 @@ body.touch .tc{display:inline}
 #tbtns{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 #tactE{width:96px;height:96px;border-radius:50%;font-weight:800;font-size:15px;letter-spacing:.06em;border-color:var(--mint)}
 #tsm{display:flex;gap:8px}
-#tsm button{width:52px;height:46px;font-size:18px}
+#tsm button{width:46px;height:44px;font-size:18px}
 #dlgSkip{display:none;margin:8px 0 0;float:left;font-size:12px;padding:6px 12px}
 body.touch #dlgSkip{display:inline-block}
 body.touch .kpGrid button{min-height:58px;font-size:22px}
@@ -92,17 +93,25 @@ body.touch .kpGrid button{min-height:58px;font-size:22px}
 }
 @media(pointer:coarse){button{min-height:40px}}
 </style></head><body><main><header><div><h1>UNNAME — <span style="color:#9ce6c8">LES ARCHIVES DU SILENCE</span></h1><p>Enquête horrifique 2D • Manoir de Valombre • Chapitre I : Le direct fantôme</p></div></header>
-<div class="layout"><div><div class="screen"><canvas id="game" width="800" height="512" tabindex="0"></canvas></div><div id="touch"><div id="dpad"><button data-k="ArrowUp" style="grid-area:1/2" aria-label="Haut">▲</button><button data-k="ArrowLeft" style="grid-area:2/1" aria-label="Gauche">◀</button><button data-k="ArrowRight" style="grid-area:2/3" aria-label="Droite">▶</button><button data-k="ArrowDown" style="grid-area:3/2" aria-label="Bas">▼</button></div><div id="tbtns"><div id="tsm"><button id="tJ" aria-label="Journal">📓</button><button id="tY" aria-label="Récapitulatif">❔</button></div><button id="tactE">AGIR</button></div></div><section class="panel" style="margin-top:10px"><h2>Commandes</h2><span class="kb"><span class="key">Flèches / ZQSD / WASD</span><span class="key">E / Entrée : agir</span><span class="key">J : journal</span><span class="key">Y : récapitulatif</span><span class="key">Manette : stick/croix, A = agir, Y = récap, Start = journal</span></span><span class="tc"><span class="key">Croix : se déplacer</span><span class="key">AGIR : parler / examiner</span><span class="key">📓 journal</span><span class="key">❔ récap</span><span class="key">Touche le texte pour continuer</span></span><p class="muted">Un doute sur la suite ? Le récapitulatif résume toujours la prochaine étape.</p></section></div>
-<aside><section class="panel"><h2>Objectif</h2><p id="goal">Parle à Unname et commence les recherches.</p><p class="muted" id="loc">Lieu : Hall</p><p class="muted" id="clockP"></p><div class="bar"><i id="bar"></i></div><p class="muted" id="count">0 / 7 indices</p></section><section class="panel"><h2>Journal d'enquête</h2><ul id="clues" class="muted"><li>Aucun indice trouvé.</li></ul><button id="journal">Lire le journal (J)</button><button id="reset">Nouvelle partie</button></section><section class="panel"><h2>Les invités</h2><ul class="muted"><li>Unname — maître du jeu</li><li>tom_hagane, simon_shinji, kataneo21</li><li>eltise, S4tha, unfamiliary</li><li>Drunkman et lapetitebeaute</li><li>Le Régisseur — présence cachée</li></ul></section><section class="panel"><h2>Inventaire</h2><p id="inventory" class="muted">Vide</p></section></div></main>
+<div class="layout"><div><div class="screen"><canvas id="game" width="800" height="512" tabindex="0"></canvas></div><div id="touch"><div id="dpad"><button data-k="ArrowUp" style="grid-area:1/2" aria-label="Haut">▲</button><button data-k="ArrowLeft" style="grid-area:2/1" aria-label="Gauche">◀</button><button data-k="ArrowRight" style="grid-area:2/3" aria-label="Droite">▶</button><button data-k="ArrowDown" style="grid-area:3/2" aria-label="Bas">▼</button></div><div id="tbtns"><div id="tsm"><button id="tJ" aria-label="Journal">📓</button><button id="tS" aria-label="Son">🔊</button><button id="tY" aria-label="Récapitulatif">❔</button></div><button id="tactE">AGIR</button></div></div><section class="panel" style="margin-top:10px"><h2>Commandes</h2><span class="kb"><span class="key">Flèches / ZQSD / WASD</span><span class="key">E / Entrée : agir</span><span class="key">J : journal</span><span class="key">Y : récapitulatif</span><span class="key">Manette : stick/croix, A = agir, Y = récap, Start = journal</span></span><span class="tc"><span class="key">Croix : se déplacer</span><span class="key">AGIR : parler / examiner</span><span class="key">📓 journal</span><span class="key">❔ récap</span><span class="key">Touche le texte pour continuer</span></span><p class="muted">Un doute sur la suite ? Le récapitulatif résume toujours la prochaine étape.</p></section></div>
+<aside><section class="panel"><h2>Objectif</h2><p id="goal">Parle à Unname et commence les recherches.</p><p class="muted" id="loc">Lieu : Hall</p><div class="bar"><i id="bar"></i></div><p class="muted" id="count">0 / 7 indices</p></section><section class="panel"><h2>Journal d'enquête</h2><ul id="clues" class="muted"><li>Aucun indice trouvé.</li></ul><button id="journal">Lire le journal (J)</button><button id="reset">Nouvelle partie</button><button id="snd">🔊 Son</button></section><section class="panel"><h2>Les invités</h2><ul class="muted"><li>Unname — maître du jeu</li><li>tom_hagane, simon_shinji, kataneo21</li><li>eltise, S4tha, unfamiliary</li><li>Drunkman et lapetitebeaute</li><li>Le Régisseur — présence cachée</li></ul></section><section class="panel"><h2>Inventaire</h2><p id="inventory" class="muted">Vide</p></section></div></main>
 <div id="dlg"><div class="box"><div class="who" id="who"></div><div class="words" id="words"></div><div class="hint"><span class="kb">E / Entrée / Espace pour continuer</span><span class="tc">Touche pour continuer ▸</span></div><button id="dlgSkip">Passer ▸▸</button></div></div>
-<div id="keypad" class="ov hide"><div class="kpBox"><div class="kpTitle" id="kpTitle"></div><div class="kpHint" id="kpHint"></div><div class="kpDisp" id="kpDisp">_ _ _ _</div><div class="kpGrid" id="kpGrid"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button id="kpC">C</button><button>0</button><button id="kpOK">OK</button></div><div class="kpErr" id="kpErr"></div><button class="kpCancel" id="kpX">Annuler</button></div></div>
-<div id="nameOv" class="ov"><div class="nameBox"><h2>MANOIR DE VALOMBRE &mdash; <span id="introClock"></span></h2><div class="story">
+<div id="keypad" class="ov hide"><div class="kpBox"><div class="kpTitle" id="kpTitle"></div><div class="kpHint" id="kpHint"></div><div class="kpDisp" id="kpDisp">_ _ _ _</div><div class="kpGrid" id="kpGrid"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button id="kpC">C</button><button>0</button><button id="kpOK">OK</button></div><div class="kpHint kb">Clavier : chiffres, Retour, Entrée, Échap</div><div class="kpErr" id="kpErr"></div><button class="kpCancel" id="kpX">Annuler</button></div></div>
+<div id="nameOv" class="ov"><div class="nameBox"><h2>MANOIR DE VALOMBRE</h2><div class="story">
 Bienvenue. Tu arrives au manoir de Valombre, &agrave; l&rsquo;invitation d&rsquo;<b>Unname</b> pour un stream un peu sp&eacute;cial : <b>une rencontre IRL avec les habitu&eacute;s du canal</b>, en direct depuis un vieux manoir.<br><br>
-Mais &agrave; ton arriv&eacute;e, rien ne se passe comme pr&eacute;vu. <span class="warn">des viewers ont disparu, les cam&eacute;ras sont d&eacute;branch&eacute;es&hellip; et &agrave; <span id="launchT"></span>, un direct s&rsquo;est lanc&eacute; tout seul, depuis une cha&icirc;ne qui n&rsquo;existe plus.</span><br><br>
+Mais &agrave; ton arriv&eacute;e, rien ne se passe comme pr&eacute;vu. <span class="warn">Des viewers ont disparu, les cam&eacute;ras sont d&eacute;branch&eacute;es&hellip; et &agrave; <span id="launchT"></span>, un direct s&rsquo;est lanc&eacute; tout seul, depuis une cha&icirc;ne qui n&rsquo;existe plus. Toutes les pendules ont perdu leur trotteuse.</span><br><br>
 Signe le registre des invit&eacute;s. <b>Le manoir se souvient de ceux qui inscrivent leur nom.</b>
 </div><input id="pname" maxlength="14" placeholder="Ton nom" autocomplete="off"><button id="startBtn">Entrer dans le manoir</button></div></div>
 <div id="endOv" class="ov hide">
-  <div class="endBox" id="endS1">
+  <div class="endBox hide" id="endS0">
+    <span class="liveBadge">⏱ CHRONO CACHÉ : 00:00</span>
+    <h2>MERCI D'AVOIR JOUÉ</h2>
+    <div class="sub" id="endMerci"></div>
+    <div class="viewers">LE DIRECT SE TERMINE • LA COMMUNAUTÉ T'ATTENDAIT DEPUIS LE DÉBUT</div>
+    <p>Le chrono caché du manoir vient de tomber à zéro. Unname, <b>Unnameshark</b> — et toute la bande te réservent une dernière surprise…</p>
+    <button id="toLive">Voir le stream live</button>
+  </div>
+  <div class="endBox hide" id="endS1">
     <span class="liveBadge">EN DIRECT</span>
     <h2>BIENVENUE SUR LE STREAM LIVE D&rsquo;UNNAME</h2>
     <div class="sub" id="liveName"></div>
@@ -113,7 +122,9 @@ Signe le registre des invit&eacute;s. <b>Le manoir se souvient de ceux qui inscr
   <div class="endBox hide" id="endS2">
     <h2>FIN DU CHAPITRE I</h2>
     <p id="endRecap"></p>
-    <p>Le dixi&egrave;me cadre de la galerie porte d&eacute;sormais ton nom. La bande est compl&egrave;te : Unname, le R&eacute;gisseur et les huit habitu&eacute;s du canal te f&eacute;licitent.</p>
+    <p>Le dixi&egrave;me cadre de la galerie porte d&eacute;sormais ton nom. La bande est compl&egrave;te : <b>Unnameshark</b>, le R&eacute;gisseur et les huit habitu&eacute;s du canal te f&eacute;licitent.</p>
+    <p><b>MERCI D&rsquo;AVOIR JOU&Eacute; &mdash; BIENVENUE DANS LA COMMUNAUT&Eacute; D&rsquo;UNNAME !</b><br>
+    Suis la cha&icirc;ne : <a href="https://www.instagram.com/unname_live/" target="_blank" rel="noopener">instagram.com/unname_live</a> &bull; <a href="https://discord.gg/p7wEuUrvP9" target="_blank" rel="noopener">discord.gg/p7wEuUrvP9</a></p>
     <p class="muted">Chapitre II : une soir&eacute;e IRL tout &agrave; fait normale&hellip; en th&eacute;orie.</p>
     <button id="replay">↻ REJOUER</button>
   </div>
@@ -123,9 +134,10 @@ Signe le registre des invit&eacute;s. <b>Le manoir se souvient de ceux qui inscr
 const c=document.getElementById('game'),x=c.getContext('2d');x.imageSmoothingEnabled=false;
 const S=32,C=25,R=16,K={};
 let room='hall',dialog=null,di=0,frame=0,ready=false,padPrevA=false,padPrevB=false,padPrevY=false,padPrevStart=false,movingNow=false;
+let endAt=0,doorLock=0,finaleTalked=new Set();
 const pl={x:12*S+16,y:12*S+16};
 let clues=new Set(),seen=new Set(),items=new Set();
-let flags={studio:false,final:false,studioSeen:false,chestOpen:false};
+let flags={studio:false,final:false,studioSeen:false,chestOpen:false,endLock:false,ended:false,chrono:false};
 let heroName='';
 const pad=n=>String(n).padStart(2,'0');
 const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
@@ -147,17 +159,17 @@ if(window.ResizeObserver)new ResizeObserver(layoutScale).observe(c);layoutScale(
 const okTime=v=>[-1,0,1].some(m=>codeTime(new Date(Date.now()+m*60000))===v);
 const okDate=v=>v===codeDate(new Date());
 const guests=['tom_hagane','simon_shinji','kataneo21','eltise','S4tha','unfamiliary','Drunkman','lapetitebeaute'];
-const evidence={ticket:'Ticket de régie',photo:'Photographie déchirée',tape:'Cassette TEST 0',symbol:'Symbole inversé',plan:'Plan des conduits',log:'Journal de maintenance',voice:'Transcription audio'};
+const evidence={ticket:'Ticket de régie',photo:'Photographie déchirée',tape:'Cassette TEST 0',symbol:'Schéma des pendules',plan:'Plan du manoir',log:'Journal de maintenance',voice:'Transcription audio'};
 const itemsDb={key_vitrine:'Clé de la vitrine',fusible:'Fusible de relais'};
 const chestPos={a:20,b:12};
 const cast=[['tom_hagane',3,8,'#d59b65'],['simon_shinji',5,12,'#91b6d6'],['kataneo21',8,10,'#bda0dc'],['eltise',15,8,'#d78e8e'],['S4tha',9,13,'#b7c48b'],['unfamiliary',15,12,'#d2aa85'],['Drunkman',19,7,'#e1a6b7'],['lapetitebeaute',19,13,'#a4c5c0'],['Unname',12,10,'#c8b18b']];
 
 const maps={
-hall:{name:'Hall du manoir',floor:'#293b36',wall:'#172522',items:[['ticket',5,10],['photo',19,5]],npcs:[['Unname',12,7,'#c8b18b','host'],[guests[0],7,8,'#d59b65'],[guests[1],17,9,'#91b6d6']],doors:[['gallery',12,1,12,13,'Galerie']]},
-gallery:{name:'Galerie des portraits',floor:'#3c2b2c',wall:'#24191f',items:[['tape',8,5],['symbol',12,10]],npcs:[[guests[2],7,10,'#bda0dc'],[guests[3],17,5,'#d78e8e']],doors:[['hall',12,14,12,2,'Hall'],['library',1,8,22,8,'Bibliothèque']]},
-library:{name:'Bibliothèque',floor:'#3b3028',wall:'#211a1a',items:[['plan',12,5],['log',5,11]],npcs:[[guests[4],11,7,'#b7c48b'],[guests[5],16,11,'#d2aa85']],doors:[['gallery',23,8,2,8,'Galerie'],['studio',12,14,12,2,'Studio interdit']]},
-studio:{name:'Studio de diffusion',floor:'#252e3c',wall:'#141c2a',items:[['voice',19,5],['key_vitrine',4,11]],npcs:[[guests[6],7,10,'#e1a6b7'],[guests[7],17,10,'#a4c5c0']],doors:[['library',12,1,12,13,'Bibliothèque'],['cellar',23,8,2,8,'Escalier de service']]},
-cellar:{name:'Sous-sol',floor:'#292738',wall:'#171522',items:[],npcs:[['Le Régisseur',12,6,'#e5edf6','ghost']],doors:[['studio',1,8,22,8,'Studio']]}
+hall:{name:'Hall du manoir',floor:'#293b36',wall:'#172522',items:[['ticket',5,10],['photo',19,5]],npcs:[['Unname',12,7,'#c8b18b','host'],[guests[0],7,8,'#d59b65'],[guests[1],17,9,'#91b6d6']],doors:[['gallery',12,1,12,13,'Galerie']],obs:[['clock',9,2,'Observer la pendule'],['cam',4,11,'Examiner la caméra']]},
+gallery:{name:'Galerie des portraits',floor:'#3c2b2c',wall:'#24191f',items:[['tape',8,5],['symbol',12,10]],npcs:[[guests[2],7,10,'#bda0dc'],[guests[3],17,5,'#d78e8e']],doors:[['hall',12,14,12,2,'Hall'],['library',1,8,22,8,'Bibliothèque']],obs:[['west',6,5,'Observer les cadres (mur ouest)'],['east',18,7,'Observer les cadres (mur est)'],['top',12,3,'Observer le dixième cadre'],['clock',6,2,'Observer la pendule']]},
+library:{name:'Bibliothèque',floor:'#3b3028',wall:'#211a1a',items:[['plan',12,5],['log',5,11]],npcs:[[guests[4],11,7,'#b7c48b'],[guests[5],16,11,'#d2aa85']],doors:[['gallery',23,8,2,8,'Galerie'],['studio',12,14,12,2,'Studio interdit']],obs:[['clock',8,2,'Observer la pendule']]},
+studio:{name:'Studio de diffusion',floor:'#252e3c',wall:'#141c2a',items:[['voice',19,5],['key_vitrine',4,11]],npcs:[[guests[6],7,10,'#e1a6b7'],[guests[7],17,10,'#a4c5c0']],doors:[['library',12,1,12,13,'Bibliothèque'],['cellar',23,8,2,8,'Escalier de service']],obs:[['clock',8,2,'Observer la pendule']]},
+cellar:{name:'Sous-sol',floor:'#292738',wall:'#171522',items:[],npcs:[['Le Régisseur',12,6,'#e5edf6','ghost']],doors:[['studio',1,8,22,8,'Studio']],obs:[['clock',12,4,'Observer la pendule']]}
 };
 
 function wall(a,b){
@@ -180,13 +192,14 @@ function glow(px,py,r,col,a){
   g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');
   x.save();x.globalAlpha=a;x.fillStyle=g;x.fillRect(px-r,py-r,r*2,r*2);x.restore();
 }
-function person(px,py,col,ghost=false,label){
+function person(px,py,col,ghost=false,label,smile=false){
   const hash=[...String(label||'x')].reduce((a,c)=>a+c.charCodeAt(0),0);
   const hair=ghost?'#cfe0f4':['#5b3a24','#2c2f3a','#7a4b22','#1d2430','#4a3060','#8a6b3a','#33302b','#66513f'][hash%8];
   const isHero=label===heroName;
   const bob=isHero&&movingNow?Math.abs(Math.sin(frame/4))*2:Math.sin(frame/40+hash)*1;
   const yy=py-bob;
   x.fillStyle='rgba(0,0,0,.38)';x.beginPath();x.ellipse(px,py+13,11,4,0,0,Math.PI*2);x.fill();
+  if(!ghost&&label==='Unname'&&flags.final){drawShark(px,py);drawLabel(px,py-46,false,'Unnameshark');return}
   if(ghost){
     const fl=Math.sin(frame/18)*3;
     x.save();x.globalAlpha=.88;
@@ -216,6 +229,7 @@ function person(px,py,col,ghost=false,label){
   x.fillStyle='#e8c6a5';x.fillRect(px-7,yy-35,14,18);
   x.fillStyle=hair;x.fillRect(px-7,yy-35,14,7);x.fillRect(px-8,yy-31,3,9);x.fillRect(px+5,yy-31,3,9);
   x.fillStyle='#141a22';x.fillRect(px-4,yy-26,3,3);x.fillRect(px+2,yy-26,3,3);
+  x.fillStyle=smile?'#7a2f2a':'#9a6a5a';if(smile){x.fillRect(px-3,yy-21,6,1);x.fillRect(px-4,yy-22,1,1);x.fillRect(px+3,yy-22,1,1)}else x.fillRect(px-2,yy-20,4,1);
   drawLabel(px,yy-42,ghost,label);
 }
 function drawLabel(px,py,ghost,label){
@@ -223,6 +237,19 @@ function drawLabel(px,py,ghost,label){
   x.font='10px monospace';x.textAlign='center';
   x.fillStyle='#07111dd9';const w=x.measureText(label).width;x.fillRect(px-w/2-5,py-2,w+10,14);
   x.fillStyle=ghost?'#bcd4f2':'#dfe9f2';x.fillText(label,px,py+9);x.textAlign='left';
+}
+function drawShark(px,py){
+  const bob=Math.sin(frame/26)*2,yy=py-bob;
+  x.fillStyle='rgba(0,0,0,.38)';x.beginPath();x.ellipse(px,py+13,12,4,0,0,Math.PI*2);x.fill();
+  glow(px,yy-18,22,'#5b9ee6',.18+.08*Math.sin(frame/15));
+  x.fillStyle='#2f66b3';x.beginPath();x.moveTo(px-8,yy-24);x.lineTo(px-1,yy-40);x.lineTo(px+8,yy-24);x.fill();
+  x.fillStyle='#3a7bd5';x.fillRect(px-11,yy-24,22,28);x.fillRect(px-17,yy-20,6,12);x.fillRect(px+11,yy-20,6,12);
+  x.fillStyle='#5b9ee6';x.fillRect(px-11,yy-24,22,5);
+  x.fillStyle='#dceaf7';x.fillRect(px-11,yy-6,22,10);
+  x.fillStyle='#fff';x.fillRect(px-8,yy-19,7,7);x.fillRect(px+1,yy-19,7,7);
+  x.fillStyle='#10151d';x.fillRect(px-6,yy-17,3,4);x.fillRect(px+3,yy-17,3,4);
+  x.fillStyle='#7a2f2a';x.fillRect(px-5,yy-10,10,2);x.fillRect(px-6,yy-11,1,1);x.fillRect(px+5,yy-11,1,1);
+  x.fillStyle='#e8a6b8';x.fillRect(px-11,yy-14,3,2);x.fillRect(px+8,yy-14,3,2);
 }
 
 function doorLabel(text,a,b){
@@ -236,6 +263,7 @@ function detailRect(px,py,w,h,fill,stroke='#080d14'){
   x.fillStyle=fill;x.fillRect(px,py,w,h);
 }
 function drawRoomDetails(){
+  drawDecor(0);
   if(room==='hall'){
     detailRect(8*S,8*S,9*S,2*S,'#76513b','#2b1d1b');
     x.fillStyle='#c5a477';x.fillRect(8*S+8,8*S+7,9*S-16,3);x.fillRect(8*S+8,10*S-10,9*S-16,3);
@@ -255,8 +283,6 @@ function drawRoomDetails(){
       x.fillStyle='#e8d49a';x.fillRect(chestPos.a*S+14,chestPos.b*S+15,4,5);}
     else{detailRect(chestPos.a*S+6,chestPos.b*S+2,20,16,'#4a3320','#241708');
       x.fillStyle='#241708';x.fillRect(chestPos.a*S+10,chestPos.b*S+18,12,6);}
-    if(flags.final){x.font='bold 11px monospace';x.textAlign='center';x.fillStyle='#d45b68';
-      x.fillText(heroName,19*S+23,3*S+2);x.textAlign='left';}
     x.fillStyle='#8e6b55';x.fillRect(7*S,2*S+5,11*S,3);
     x.fillStyle='#a88c70';for(let i=0;i<5;i++)x.fillRect((8+i*2)*S+12,2*S+10,8,3);
     x.fillStyle='#6b343d';x.fillRect(7*S,12*S,11*S,5);x.fillRect(7*S,12*S,5,2*S);
@@ -292,8 +318,9 @@ function drawRoomDetails(){
     for(let i=0;i<4;i++){x.fillStyle='#766a61';x.fillRect(17*S+8+i*32,9*S+8,22,20)}
     x.strokeStyle='#655b78';x.lineWidth=3;for(let i=0;i<4;i++){x.beginPath();x.moveTo((3+i*5)*S,1*S);x.lineTo((3+i*5)*S,3*S);x.stroke()}
     x.fillStyle='#9a8cae';x.fillRect(10*S,2*S,5*S,3);
-    doorLabel('← Studio',1,8);
+    if(flags.endLock)doorLabel('✕ Verrouillée',1,8);else doorLabel('← Studio',1,8);
   }
+  drawDecor(1);
 }
 
 function wallTile(a,b,m){
@@ -354,10 +381,7 @@ function drawAmbient(){
     }
   }else if(room==='studio'){
     x.fillStyle='#0a101c';x.fillRect(10*S+4,7*S+4,5*S-8,2*S-8);
-    for(let i=0;i<26;i++){
-      const nx=10*S+6+((frame*13+i*67)%(5*S-12)),ny=7*S+6+((frame*29+i*41)%(2*S-12));
-      x.fillStyle='rgba(220,230,255,'+(((frame+i*31)%9)/40)+')';x.fillRect(nx,ny,2,2);
-    }
+    for(let i=0;i<26;i++){x.fillStyle='rgba(220,230,255,.12)';x.fillRect(10*S+6+((i*67)%(5*S-12)),7*S+6+((i*41)%(2*S-12)),2,2)}
     x.strokeStyle='#5a6a7c';x.lineWidth=3;x.beginPath();x.moveTo(11*S+16,10*S);x.lineTo(11*S+16,11*S+12);x.stroke();
     x.fillStyle='#222a36';x.fillRect(11*S+6,9*S+4,20,12);
     x.fillStyle='#101722';x.fillRect(11*S+24,9*S+7,5,6);
@@ -377,6 +401,170 @@ function drawAmbient(){
     glow(12*S+16,2*S+16,55,'#e8d0b0',.07);
   }
 }
+
+function clockFace(px,py,r){
+  const d=new Date();
+  x.fillStyle='#0b0f16';x.beginPath();x.arc(px,py,r+3,0,7);x.fill();
+  x.fillStyle='#d9cfb4';x.beginPath();x.arc(px,py,r,0,7);x.fill();
+  x.strokeStyle='#3a2f22';x.lineWidth=1;
+  for(let i=0;i<12;i++){const a=i*Math.PI/6;x.beginPath();x.moveTo(px+Math.sin(a)*(r-3),py-Math.cos(a)*(r-3));x.lineTo(px+Math.sin(a)*r,py-Math.cos(a)*r);x.stroke()}
+  const h=d.getHours()%12,m=d.getMinutes(),ah=(h+m/60)*Math.PI/6,am=m*Math.PI/30;
+  x.lineWidth=2;x.beginPath();x.moveTo(px,py);x.lineTo(px+Math.sin(ah)*r*.5,py-Math.cos(ah)*r*.5);x.stroke();
+  x.lineWidth=1.5;x.beginPath();x.moveTo(px,py);x.lineTo(px+Math.sin(am)*r*.8,py-Math.cos(am)*r*.8);x.stroke();
+  x.fillStyle='#0b0f16';x.beginPath();x.arc(px,py,2,0,7);x.fill();
+  if(flags.studio){x.fillStyle='#10151d';x.fillRect(px-9,py+r*.38,18,7);x.font='6px monospace';x.textAlign='center';x.fillStyle='#ffdf9e';x.fillText(pad(d.getDate())+'/'+pad(d.getMonth()+1),px,py+r*.38+6);x.textAlign='left'}
+  x.lineWidth=1;
+}
+function cobweb(px,py,sx){
+  x.strokeStyle='rgba(255,255,255,.22)';x.lineWidth=1;
+  for(let k=1;k<=3;k++){x.beginPath();x.arc(px,py,k*9,sx>0?0:Math.PI/2,sx>0?Math.PI/2:Math.PI);x.stroke()}
+  for(let a=0;a<=2;a++){const t=a*Math.PI/4;x.beginPath();x.moveTo(px,py);x.lineTo(px+sx*Math.cos(t)*28,py+Math.sin(t)*28);x.stroke()}
+}
+function onAir(px,py){
+  x.fillStyle='#0a0d14';x.fillRect(px-2,py-2,56,22);
+  const on=clues.size>0&&frame%90<80;
+  x.fillStyle=on?'#6b1f2a':'#2a1216';x.fillRect(px,py,52,18);
+  x.font='bold 11px monospace';x.textAlign='center';x.fillStyle=on?'#ff7a8a':'#5a2a30';x.fillText('ON AIR',px+26,py+13);x.textAlign='left';
+  if(on)glow(px+26,py+9,36,'#ff5a68',.25);
+}
+function frameBox(px,py,w,h,pic,empty){
+  x.fillStyle='#1a1208';x.fillRect(px-3,py-3,w+6,h+6);
+  x.fillStyle='#c6a477';x.fillRect(px-2,py-2,w+4,h+4);
+  x.fillStyle=empty?'#17151a':pic;x.fillRect(px,py,w,h);
+  if(empty){x.fillStyle='#d8d2c0';x.fillRect(px+w/2-6,py+h/2-4,12,9);x.fillStyle='#8a8a8a';x.fillRect(px+w/2-1,py-1,2,8)}
+  else{x.fillStyle='#17151a';x.fillRect(px+w/2-3,py+6,6,6);x.fillRect(px+w/2-5,py+14,10,h-14)}
+}
+function drawDecor(pass){
+  const t=Date.now();
+  if(pass===0){
+    if(room==='hall'){
+      x.fillStyle='#4e1f2b';x.fillRect(9*S,11*S,7*S,3*S);x.strokeStyle='#b08a55';x.lineWidth=2;x.strokeRect(9*S+4,11*S+4,7*S-8,3*S-8);x.lineWidth=1;
+      x.strokeStyle='#00000040';for(let i=0;i<3;i++){x.beginPath();x.moveTo(5*S+i*5,7*S);x.lineTo(5*S+i*5+9,7*S+22);x.stroke()}
+    }
+    if(room==='gallery'){
+      for(let i=0;i<3;i++){const fx=(9+i*3)*S+4;frameBox(fx,1*S+3,24,22,['#8a7770','#17151a','#756d82'][i],i===1);
+        x.fillStyle='#b89a52';x.fillRect(fx+4,1*S+27,16,3)}
+    }
+    if(room==='cellar'){
+      const cx=12*S+16,cy=10*S+20,r=74,d=new Date();
+      x.strokeStyle='rgba(180,60,80,.5)';x.lineWidth=3;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();x.lineWidth=1.5;x.beginPath();x.arc(cx,cy,r-8,0,7);x.stroke();
+      for(let i=0;i<12;i++){const a=i*Math.PI/6;x.beginPath();x.moveTo(cx+Math.sin(a)*(r-18),cy-Math.cos(a)*(r-18));x.lineTo(cx+Math.sin(a)*(r-9),cy-Math.cos(a)*(r-9));x.stroke()}
+      const ah=(d.getHours()%12+d.getMinutes()/60)*Math.PI/6,am=d.getMinutes()*Math.PI/30;x.strokeStyle='rgba(200,80,100,.55)';x.lineWidth=3;
+      x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.sin(ah)*r*.45,cy-Math.cos(ah)*r*.45);x.stroke();x.lineWidth=2;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.sin(am)*r*.75,cy-Math.cos(am)*r*.75);x.stroke();
+      x.fillStyle='rgba(10,8,16,.75)';x.fillRect(cx-26,cy+28,52,16);x.font='bold 12px monospace';x.textAlign='center';x.fillStyle='#d8a8b0';x.fillText(pad(d.getDate())+'/'+pad(d.getMonth()+1),cx,cy+41);x.textAlign='left';x.lineWidth=1;
+    }
+    return;
+  }
+  cobweb(2*S,2*S,1);cobweb(23*S,2*S,-1);
+  if(room==='hall'){
+    clockFace(9*S+16,1*S+16,14);onAir(14*S+8,1*S+8);
+    const cx=4*S+16,cy=11*S+16;
+    x.strokeStyle='#2a2f38';x.lineWidth=3;[[-11,16],[0,18],[11,16]].forEach(l=>{x.beginPath();x.moveTo(cx,cy-6);x.lineTo(cx+l[0],cy+l[1]);x.stroke()});
+    x.fillStyle='#10151d';x.fillRect(cx-10,cy-20,20,13);x.fillStyle='#2b3342';x.fillRect(cx+4,cy-17,7,7);
+    x.fillStyle=frame%50<35?'#ff5a68':'#5a2229';x.fillRect(cx-8,cy-18,3,3);
+    x.strokeStyle='#1b2029';x.lineWidth=2;x.beginPath();x.moveTo(cx-10,cy-12);x.quadraticCurveTo(cx-26,cy,cx-16,cy+18);x.stroke();x.lineWidth=1;
+  }else if(room==='gallery'){
+    clockFace(6*S+16,1*S+16,13);
+    if(flags.final){x.fillStyle='#3a1218';x.fillRect(12*S-6,1*S+27,44,11);x.font='bold 9px monospace';x.textAlign='center';x.fillStyle='#ff9aa8';x.fillText(heroName.slice(0,9),12*S+16,1*S+36);x.textAlign='left'}
+    for(let i=0;i<3;i++){x.fillStyle='#b89a52';x.fillRect(3*S+14,3*S+8+i*42+32,18,3)}
+    for(let i=0;i<4;i++){x.fillStyle='#b89a52';x.fillRect(19*S+14,3*S+8+i*65+50,18,3)}
+  }else if(room==='library'){
+    clockFace(8*S+16,1*S+16,14);
+    for(let i=0;i<9;i++){const px=(14+(i%3)*1.4)*S+(i*13)%20,py=(5+Math.floor(i/3)*1.3)*S+(i*7)%14;
+      x.save();x.translate(px,py);x.rotate((i*0.7)%1.2-.5);x.fillStyle=i%4===0?'#e8dfc2':'#cfc6aa';x.fillRect(-9,-6,18,12);x.fillStyle='#7a6f58';x.fillRect(-6,-3,12,1);x.fillRect(-6,0,9,1);x.restore()}
+  }else if(room==='studio'){
+    clockFace(8*S+16,1*S+16,14);onAir(16*S,1*S+8);
+    const rx=20*S+16,ry=10*S+10;
+    x.strokeStyle='#cfcab9';x.lineWidth=4;x.beginPath();x.arc(rx,ry,15,0,7);x.stroke();
+    x.strokeStyle='#2a2f38';x.lineWidth=3;x.beginPath();x.moveTo(rx,ry+15);x.lineTo(rx,ry+40);x.moveTo(rx-12,ry+44);x.lineTo(rx,ry+40);x.lineTo(rx+12,ry+44);x.stroke();
+    glow(rx,ry,26,'#fff1c9',.12+.05*Math.sin(frame/15));
+    x.strokeStyle='#111722';x.lineWidth=3;
+    x.beginPath();x.moveTo(8*S,9*S+10);x.quadraticCurveTo(6*S,12*S,10*S,13*S+10);x.stroke();
+    x.beginPath();x.moveTo(17*S,9*S+10);x.quadraticCurveTo(19*S,12*S,16*S,13*S+14);x.stroke();x.lineWidth=1;
+  }else if(room==='cellar'){
+    [5,15,19].forEach(a=>clockFace(a*S+16,1*S+16,13));
+    x.fillStyle='#1c1624';x.fillRect(12*S+2,2*S+4,28,66);x.fillStyle='#2b2230';x.fillRect(12*S+4,2*S+6,24,62);
+    clockFace(12*S+16,2*S+22,10);
+    x.fillStyle='#0b0b12';x.fillRect(12*S+8,2*S+36,16,28);
+    const sw=Math.sin(t/500)*7;x.strokeStyle='#b89a52';x.lineWidth=1.5;x.beginPath();x.moveTo(12*S+16,2*S+38);x.lineTo(12*S+16+sw,2*S+58);x.stroke();
+    x.fillStyle='#d8b560';x.beginPath();x.arc(12*S+16+sw,2*S+58,3.5,0,7);x.fill();x.lineWidth=1;
+  }
+}
+const OBS_TXT=()=>{const nd=new Date();return{
+  west:['Cadres du mur ouest',['Trois portraits sous verre : Unname, tom_hagane, simon_shinji. Sous chacun, une plaque de laiton gravée à la hâte.','Le verre d’Unname est fêlé en étoile, comme si on l’avait frappé de l’intérieur. Sur la plaque : « Premier à avoir répondu. »','Le casque de tom_hagane est peint de travers, et un vrai fil s’échappe du cadre jusqu’au parquet. Chez simon_shinji, un minuscule écran est collé dans le coin : il fait défiler des messages en boucle.']],
+  east:['Cadres du mur est',['Quatre autres portraits : kataneo21, eltise, S4tha, unfamiliary. Les quatre regards sont tournés vers le centre de la galerie, jamais vers toi.','Quelqu’un a écrit au feutre sous eltise : « elle entend toujours les pas en premier ». Sous S4tha, une étiquette de bibliothèque : « cote introuvable ».','Le cadre d’unfamiliary est légèrement penché. Dans le coin, un minuscule autocollant : « montage ? ».']],
+  top:flags.final?['Le dixième cadre',['Le dixième cadre porte désormais ton nom, '+heroName+'.','Derrière le verre, une photo prise ce soir : toi, devant la porte du hall, l’air de te demander ce qui se passe. Tout le monde a gardé son fou rire.']]:['Le dixième cadre',['Entre Drunkman et lapetitebeaute, un cadre reste vide. Le fond de carton est neuf : la poussière n’a pas eu le temps de s’y déposer.','Sur la plaque, un papier vierge retenu par un trombone, comme si on attendait de glisser un nom. Dix cadres pour dix invités… et neuf visages seulement.','Le verre ne reflète pas la galerie. Il reflète la porte du hall, comme si quelqu’un venait d’entrer.']],
+  clock:['La pendule',['Les aiguilles indiquent '+hm(nd)+'. À la place de la trotteuse, il n’y a plus qu’un petit trou : on l’a arrachée.','Pourtant, elle bat. Chaque seconde s’entend, et chaque seconde est juste.'].concat(flags.studio?['Une petite fenêtre s’est ouverte sur le cadran : « '+pad(nd.getDate())+'/'+pad(nd.getMonth()+1)+' ». Aujourd’hui, rien que ça.']:[])],
+  cam:['Caméra sur trépied',['Son câble pend, débranché, jusqu’à une prise murale vide.','Pourtant, le voyant rouge reste allumé. Quelque part, quelqu’un regarde.']]
+}};
+function observe(id){const o=OBS_TXT()[id];if(o)say(o[0],o[1])}
+
+/* ---- sons (synthèse WebAudio, aucun fichier) ---- */
+let AC=null,muted=false;
+try{muted=localStorage.getItem('unnameMute')==='1'}catch(e){}
+function audio(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return null}}if(AC.state==='suspended')AC.resume();return AC}
+function tone(f,d,v,type,t0){const a=audio();if(!a||muted)return;const t=a.currentTime+(t0||0),o=a.createOscillator(),g=a.createGain();
+  o.type=type||'sine';o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.006);g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}
+function tickSnd(n){const v={hall:.05,gallery:.03,library:.06,studio:.035,cellar:.08}[room]||.04,hi=n%2===0;tone(hi?1700:1300,.04,v,'triangle');tone(hi?240:190,.07,v*.7,'sine')}
+function chime(){tone(1318,1.1,.04,'sine');tone(1760,1.3,.03,'sine',.14)}
+function beep(){tone(880,.07,.05,'square')}
+function buzz(){tone(140,.3,.06,'sawtooth')}
+function gong(){[[98,7,.16],[147,6,.09],[196.5,5.5,.07],[263,4.5,.05],[310,4,.035],[415,3,.025],[520,2.2,.015]].forEach((p,i)=>{tone(p[0],p[1],p[2]*1.6,'sine',i*.012);tone(p[0]*1.004,p[1],p[2]*1.2,'sine',i*.012)})}
+function setMute(m){muted=m;try{localStorage.setItem('unnameMute',m?'1':'0')}catch(e){}
+  const l=m?'🔇':'🔊';document.getElementById('snd').textContent=l+' Son';document.getElementById('tS').textContent=l;if(!m)audio()}
+let lastSec=0;
+
+/* ---- stream : spectateurs + chat ---- */
+const viewersNow=()=>room==='cellar'?10:Math.min(9,Math.floor(clues.size*1.2)+(flags.studio?1:0)+(flags.chestOpen?1:0));
+let chat=[],nextChat=0;
+const CHAT=[
+ [['viewer_0417','c’est quoi cette chaîne ?'],['x_Noctis_x','elle existe pas, cette chaîne'],['viewer_2209','le manoir a l’air vide…'],['ghost_chat','même écran pour vous ?'],['viewer_7781','…'],['viewer_3301','les secondes, c’est horrible']],
+ [['x_Noctis_x','il lit tout, regardez-le'],['viewer_0417','il est quelle heure chez vous ?'],['ghost_chat','trois relais, trois clacs'],['viewer_3301','pas de trotteuse, ça cloche']],
+ [['viewer_2209','le studio ! enfin !'],['x_Noctis_x','le chat sait déjà la suite'],['ghost_chat','ça sent le sous-sol'],['viewer_7781','quelqu’un descend ?'],['x_Noctis_x','aujourd’hui, aujourd’hui…']],
+ [['viewer_0417','plus qu’un verrou…'],['x_Noctis_x','combien de chiffres ?'],['ghost_chat','tic tac tic tac'],['viewer_3301','il faut y aller']],
+ [['viewer_0417','chut… il est en bas'],['ghost_chat','ne coupez pas l’image'],['x_Noctis_x','tic tac tic tac']]
+];
+function updateChat(){const n=Date.now();if(!ready||flags.final||n<nextChat)return;nextChat=n+4000+Math.random()*5000;
+  const st=room==='cellar'?4:flags.chestOpen?3:flags.studio?2:clues.size>=2?1:0,pool=CHAT[st],m=pool[Math.floor(Math.random()*pool.length)];
+  if(chat.length&&chat[chat.length-1].t===m[1])return;chat.push({u:m[0],t:m[1]});if(chat.length>4)chat.shift()}
+function drawStream(){
+  x.save();x.translate(800,0);x.scale(HS,HS);x.translate(-800,0);
+  const blink=frame%50<25;
+  x.fillStyle='#07111dd0';x.fillRect(596,10,196,26);
+  x.fillStyle='#bb5368';x.beginPath();x.arc(610,23,6,0,7);x.fill();
+  if(blink){x.fillStyle='#fff';x.beginPath();x.arc(610,23,2,0,7);x.fill()}
+  x.font='bold 12px monospace';x.fillStyle=blink?'#ffd7dc':'#bb5368';x.fillText('LIVE',620,28);
+  x.font='12px monospace';x.fillStyle='#9ce6c8';x.fillText(viewersNow()+' spec.',662,28);
+  const sc=Math.max(0,Math.floor((Date.now()-launchD.getTime())/1000));
+  x.fillStyle='#a8bad0';x.fillText(pad(Math.floor(sc/3600))+':'+pad(Math.floor(sc/60)%60)+':'+pad(sc%60),722,28);
+  if(HS<1.5&&chat.length&&!flags.final){
+    x.fillStyle='#07111d99';x.fillRect(516,40,276,chat.length*16+8);
+    x.font='10px monospace';
+    chat.forEach((m,i)=>{const y=56+i*16;x.fillStyle='#9ce6c8';x.fillText(m.u+':',522,y);x.fillStyle='#d5e2ee';x.fillText(m.t,522+(m.u.length+2)*6,y)});
+  }
+  if(flags.chrono&&!flags.ended){
+    const left=Math.max(0,Math.ceil((endAt-Date.now())/1000));
+    x.fillStyle='#07111dd9';x.fillRect(596,40,196,24);
+    x.strokeStyle=left<=10?'#d45b68':'#2b3f56';x.strokeRect(596.5,40.5,195,23);
+    x.font='12px monospace';x.fillStyle=left<=10?(frame%20<10?'#ff7a8a':'#ffd7dc'):'#c4a3b0';
+    x.fillText('fin du direct : '+Math.floor(left/60)+':'+pad(left%60),606,56);
+    if(left<=10)glow(694,52,28,'#ff5a68',.28);
+  }
+  x.restore();
+}
+const TICKER=['ABONNE-TOI AU CANAL D’UNNAME !','SUIS-NOUS SUR INSTAGRAM : instagram.com/unname_live','REJOINS LE DISCORD DE LA COMMUNAUTÉ : discord.gg/p7wEuUrvP9','LIKE, PARTAGE, ACTIVE LA CLOCHE — LA BANDE S’AGRANDIT !','IRL, STREAMS, PRANKS : TOUT SE PASSE CHEZ UNNAME','⚠ ounameonlyfeet.fr — le site qu’il ne fallait surtout pas ouvrir'];
+function drawTicker(){
+  const msg=TICKER.join('   •   ')+'   •   ';
+  x.font='bold 11px monospace';
+  const w=Math.max(200,x.measureText(msg).width);
+  const off=(frame*1.3)%w;
+  x.save();x.beginPath();x.rect(10,44,390,20);x.clip();
+  x.fillStyle='#07111dcc';x.fillRect(10,44,390,20);
+  x.strokeStyle='#2b3f56';x.strokeRect(10.5,44.5,389,19);
+  x.fillStyle='#9ce6c8';x.fillText(msg,14-off,58);x.fillText(msg,14-off+w,58);
+  x.restore();
+}
 function draw(){
   let m=maps[room];
   x.font='10px monospace';
@@ -388,46 +576,29 @@ function draw(){
     if(evidence[it[0]]?clues.has(it[0]):items.has(it[0]))continue;
     drawItem(it[1]*S+16,it[2]*S+16,it[0]);
   }
-  for(let n of m.npcs)person(n[1]*S+16,n[2]*S+16,n[3],n[4]==='ghost',n[0]);
-  if(flags.final&&room==='cellar')for(const g of cast)person(g[1]*S+16,g[2]*S+16,g[3],false,g[0]);
+  for(let n of m.npcs)person(n[1]*S+16,n[2]*S+16,n[3],n[4]==='ghost',n[0],Math.hypot(pl.x-(n[1]*S+16),pl.y-(n[2]*S+16))>170||flags.final);
+  if(flags.final&&room==='cellar')for(const g of cast)person(g[1]*S+16,g[2]*S+16,g[3],false,g[0],true);
   person(pl.x,pl.y,'#9ce6c8',false,heroName);
   drawAmbient();
   x.restore();
+  if(flags.studio||room==='cellar'){x.fillStyle='#bb5368';x.globalAlpha=.05+Math.sin(frame/12)*.03;x.fillRect(0,0,800,512);x.globalAlpha=1}
+  const dread=clues.size/7+(room==='cellar'?.2:0),vt=8+dread*8;
+  x.fillStyle='rgba(4,7,12,'+(0.12+dread*0.16)+')';
+  x.fillRect(0,0,800,vt);x.fillRect(0,512-vt,800,vt);x.fillRect(0,0,vt,512);x.fillRect(800-vt,0,vt,512);
   x.save();x.scale(HS,HS);
   x.font='13px monospace';
   x.fillStyle='#07111de6';x.fillRect(10,10,252,30);
   x.fillStyle='#9ce6c8';x.fillRect(10,10,4,30);
-  x.fillStyle='white';x.fillText(m.name,24,30);
-  x.fillStyle='#07111de6';x.fillRect(10,44,252,22);x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(dateFr(new Date())+' • '+hm(new Date()),24,59);x.font='13px monospace';x.restore();
+  x.fillStyle='white';x.fillText(m.name,24,30);x.restore();
+  if(room==='cellar')drawTicker();
   let n=near();
   if(n){
     x.save();x.translate(400,512);x.scale(HS,HS);x.translate(-400,-512);
-    x.fillStyle='#07111ddd';x.fillRect(235,468,330,30);
-    x.strokeStyle='#9ce6c8';x.strokeRect(235,468,330,30);
-    x.fillStyle='white';x.textAlign='center';x.fillText((isTouch()?'AGIR : ':'E : ')+n.label,400,488);x.textAlign='left';x.restore();
+    x.fillStyle='#07111df2';x.fillRect(215,462,370,34);
+    x.strokeStyle='#9ce6c8';x.strokeRect(215,462,370,34);
+    x.font='13px monospace';x.fillStyle='white';x.textAlign='center';x.fillText((isTouch()?'AGIR : ':'E : ')+n.label,400,484);x.textAlign='left';x.restore();
   }
-  if(flags.studio||room==='cellar'){
-    x.fillStyle='#bb5368';x.globalAlpha=.06+Math.sin(frame/12)*.04;
-    x.fillRect(0,0,800,512);x.globalAlpha=1;
-  }
-  const dread=clues.size/7+(room==='cellar'?.3:0);
-  x.fillStyle='rgba(4,7,12,'+(0.25+dread*0.35)+')';
-  x.fillRect(0,0,800,16+dread*10);x.fillRect(0,512-16-dread*10,800,16+dread*10);
-  x.fillRect(0,0,16+dread*10,512);x.fillRect(800-16-dread*10,0,16+dread*10,512);
-  if(clues.size>=2&&frame%240<8){x.fillStyle='#bb536818';x.fillRect(0,0,800,512)}
-  let viewers=clues.size<4?0:Math.min(9,clues.size-3+(flags.studio?1:0)+(flags.chestOpen?1:0));
-  if(room==='cellar')viewers=10;
-  if(viewers>0){
-    x.save();x.translate(800,0);x.scale(HS,HS);x.translate(-800,0);
-    const blink=frame%50<25;
-    x.fillStyle='#bb5368';x.beginPath();x.arc(726,24,6,0,Math.PI*2);x.fill();
-    if(blink){x.fillStyle='#fff';x.beginPath();x.arc(726,24,2,0,Math.PI*2);x.fill()}
-    x.fillStyle='#07111ddd';x.fillRect(738,14,54,20);
-    x.fillStyle=blink?'#ffd7dc':'#bb5368';x.font='bold 12px monospace';x.fillText('LIVE',742,28);
-    x.fillStyle='#9ce6c8';x.font='12px monospace';x.fillText(viewers+' spec.',660,28);x.restore();
-    if(frame%140<4){x.fillStyle='#ffffff14';for(let i=0;i<4;i++){const gy=(frame*37+i*131)%512;x.fillRect(0,gy,800,2)}}
-    if(frame%210<10){x.fillStyle='#bb536810';x.fillRect(0,(frame*53)%400,800,3)}
-  }
+  drawStream();
 }
 
 function near(){
@@ -441,11 +612,16 @@ function near(){
     const lbl=evidence[it[0]]?'Examiner : '+evidence[it[0]]:'Prendre : '+itemsDb[it[0]];
     if(d<44)a.push({d,label:lbl,fn:()=>inspect(it[0])});
   }
+  for(const o of (m.obs||[])){const d=Math.hypot(pl.x-(o[1]*S+16),pl.y-(o[2]*S+16));if(d<46)a.push({d:d+8,label:o[3],fn:()=>observe(o[0])})}
   if(room==='gallery'&&!flags.chestOpen){
     let d=Math.hypot(pl.x-(chestPos.a*S+16),pl.y-(chestPos.b*S+16));
     if(d<48)a.push({d,label:items.has('key_vitrine')?'Ouvrir le coffre de la vitrine':'Coffre verrouillé (clé requise)',fn:openChest});
   }
-  for(let d of m.doors){if(Math.hypot(pl.x-(d[1]*S+16),pl.y-(d[2]*S+16))<52)a.push({d:1,label:d[5],fn:()=>go(d)})}
+  for(let d of m.doors){
+    if(flags.endLock&&!flags.ended&&d[0]!=='cellar')continue;
+    if(Date.now()<doorLock)continue;
+    if(Math.hypot(pl.x-(d[1]*S+16),pl.y-(d[2]*S+16))<52)a.push({d:1,label:d[5],fn:()=>go(d)});
+  }
   return a.sort((a,b)=>a.d-b.d)[0];
 }
 
@@ -456,83 +632,89 @@ function talk(n){
   const id=n[0],has=k=>clues.has(k);
   if(flags.final){
     const party={
-      'Unname':'Et voilà notre dixième invité ! Bienvenue dans la bande, '+heroName+'. La soirée IRL était la couverture — le véritable stream, c’était toi.',
-      'Le Régisseur':'Bravo, tu as tout reconstitué dans l’ordre. Le rôle du fantôme me va plutôt bien, non ? Je garde la console : elle raconte mieux que moi.',
-      'tom_hagane':'Le souffle et les bips dans mon casque, c’était moi avec un deuxième micro. Désolé pour les mains moites.',
+      'Unname':'Baby Unnameshark, doo doo doo doo ! Et voilà notre dixième invité ! Bienvenue dans la bande, '+heroName+'. Le costume de requin, la soirée IRL… tout était la couverture : le véritable stream, c’était toi.',
+      'Le Régisseur':'Bravo, tu as tout reconstitué dans l’ordre. J’ai retiré les trotteuses pour toi : tu n’avais pas besoin des secondes pour gagner. Je garde la console.',
+      'tom_hagane':'Les tic-tac dans mon casque, c’était moi avec un deuxième micro. Désolé : les secondes, j’ai fini par les détester pour de vrai.',
       'simon_shinji':'Les messages du chat fantôme, je les écrivais en direct depuis la régie. Tu aurais dû voir ta tête à '+LT()+'.',
-      'kataneo21':'La voix qui comptait derrière les murs, c’était un haut-parleur caché sous la galerie. Bravo de ne rien avoir lâché.',
+      'kataneo21':'Les portraits qui te suivent des yeux, c’est du carton découpé. Et je me retenais de rire dès que tu tournais le dos.',
       'eltise':'Les pas à l’étage, c’était Drunkman en chaussettes. Et le dixième cadre vide t’était réservé depuis le début.',
       'S4tha':'J’ai glissé le plan dans le mauvais registre exprès, et j’ai écrit le journal à la main. Bien joué d’avoir tout recoupé.',
       'unfamiliary':'Mes onze secondes de blanc, c’était une coupure de son bien placée. Je te jure que je me retenais de rire.',
-      'Drunkman':'Mon « verre de trop », c’était du jus de pomme. Le circuit, les relais, tout était écrit : toi seul l’as remis en marche. Respect.',
+      'Drunkman':'Mon « verre de trop », c’était du jus de pomme. Les pendules, les verrous, tout était écrit : toi seul as tout remis en marche.',
       'lapetitebeaute':'« Merci d’être resté jusqu’à la fin »… c’était pour toi, '+heroName+'. Merci d’être resté.'
     };
-    say(id,party[id]||'Félicitations, '+heroName+' !');return;
+    say(id==='Unname'?'Unnameshark':id,party[id]||'Félicitations, '+heroName+' !');
+    if(id!=='Le Régisseur'){finaleTalked.add(id);
+      if(finaleTalked.size>=9&&!flags.chrono)armChrono();
+      else if(!flags.chrono&&finaleTalked.size<9)queueEvent('Unnameshark','Encore '+(9-finaleTalked.size)+' personne'+((9-finaleTalked.size)>1?'s':'')+' à voir en bas avant que le chrono caché ne se lance…');
+    }
+    return;
   }
   if(id==='Unname'){
     if(!seen.has('Unname')){seen.add('Unname');save();say('Unname',[
       'Tu es enfin là, '+heroName+'. On devait passer une soirée IRL tranquille avec la communauté… et rien, ce soir, ne se passe comme prévu.',
-      'À '+LT()+', un direct s’est lancé depuis une chaîne qui n’existe plus. J’ai essayé de couper le courant : le voyant est resté allumé. Les portes se verrouillent les unes après les autres.',
-      'Je n’ai pas de plan, je ne vais pas faire semblant. J’ai juste l’impression que ce manoir garde tout : les gens, les jours, les heures. Et qu’il attend que quelqu’un fasse quelque chose.'
+      'À '+LT()+', un direct s’est lancé depuis une chaîne qui n’existe plus. Les portes se verrouillent les unes après les autres, et on entend les secondes partout dans la maison.',
+      'Je n’ai pas de plan. J’ai juste l’impression que ce manoir ne retient que ce qui se passe aujourd’hui, à l’instant.'
     ]);}
     else if(flags.chestOpen)say('Unname',['Un fusible… Quelqu’un l’a rangé là pour qu’on le trouve, ou pour qu’on ne le trouve jamais.','Le bas de la maison respire plus fort depuis que le courant circule. Ne me demande pas ce que j’en pense.']);
     else if(flags.studio)say('Unname',['Tu as ouvert le studio. Je n’y serais pas entré seul.','Certaines choses ont été posées là pour toi, pas pour moi. Je te laisse regarder.']);
     else if(has('voice'))say('Unname',['La transcription dit « je suis déjà en bas ». Ce n’est pas ma voix… ou alors une version de moi qui a trop répété.']);
-    else say('Unname',['Je n’ai rien de plus à t’offrir que mes oreilles. Parle aux autres : chacun entend quelque chose de différent.','Et si quelqu’un te dit qu’il se souvient parfaitement de cette nuit, note l’heure.']);
+    else say('Unname',['Je n’ai rien de plus à t’offrir que mes oreilles. Parle aux autres : chacun entend quelque chose de différent.','Si quelqu’un se souvient de quelque chose, note l’heure.']);
     return;
   }
   if(id==='Le Régisseur'){
     if(has('ticket')&&has('photo')&&has('tape')&&has('voice')&&has('symbol')&&has('plan')&&has('log')){
+      finaleTalked.add('Le Régisseur');
       say('Le Régisseur',[
         'Tu as reconstitué tout le dossier. Et tu as même remis le fusible dans le panneau. Chapeau, '+heroName+'.',
-        'Alors je peux te dire la vérité. Rien de tout cela n’était dangereux : le direct fantôme, la coupure, les relais remis en route, ma voix dans le casque… tout était écrit. Par Unname. Avec toute la communauté.',
-        'Tu étais l’invité surprise du stream. Le dixième invité : celui dont le cadre est resté vide dans la galerie, celui qui signerait le registre ce soir sans rien soupçonner.',
+        'Alors je peux te dire la vérité. Rien de tout cela n’était dangereux : le direct fantôme, les portes, les pendules sans trotteuse, ma voix dans le casque… tout était écrit. Par Unname. Avec toute la communauté.',
+        'Tu étais l’invité surprise du stream. Le dixième invité : celui dont le cadre est resté vide dans la galerie. Ils jouaient la peur pour toi, et ils riaient dès que tu tournais le dos.',
         'Et maintenant… écoute. Des pas descendent l’escalier de service.'
       ],()=>{finaleSequence();});
     }else{
-      say('Le Régisseur',['Approche, '+heroName+'. Je garde la console et les archives de la première soirée. Mais je ne parle qu’aux dossiers complets.','Il te reste quelque chose à trouver. Je ne te dirai pas quoi.']);
+      say('Le Régisseur',['Approche, '+heroName+'. Je tiens la console, les pendules et les archives de la première soirée. Mais je ne parle qu’aux dossiers complets.','Il te reste quelque chose à trouver. Je ne te dirai pas quoi.']);
     }
     return;
   }
   const stories={
     'tom_hagane':{
-      0:['Mes mains sont moites. Depuis '+LT()+', mon casque grésille tout seul.','J’entends un souffle, puis des tics, toujours les mêmes. Comme une sorte de trotteuse.'],
-      1:['Les tics  reviennent derrière la porte du studio.','Étrange : comme si on écoutait une montre.'],
-      2:['Des tics plus graves chaques minutes chaque heures d’en bas, maintenant.',']},
+      0:['Depuis '+LT()+', tout le manoir fait tic-tac. Les secondes, dans mon casque… je ne les supporte plus.','Ça fait comme une goutte qui tombe dans ma tête. Dis-moi que tu les entends aussi.'],
+      1:['Mon casque bipe quatre fois quand je passe devant la porte du studio. Quatre notes, comme quatre chiffres.','Ce qu’elle attend change d’une minute à l’autre. Ça, je l’ai compris.'],
+      2:['Les tics sont plus graves, maintenant. Plus lents, d’en bas.','Ils ne comptent plus les secondes : ils comptent les jours. Aujourd’hui, surtout.']},
     'simon_shinji':{
-      0:['Je me sens observé. J’entends des notifications de chat alors que personne n’a de téléphone allumé.','Le compteur de viewer du direct grimpe quand tu avances. Je ne sais pas ce qu’il compte.'],
-      1:['Le chat répète en boucle « maintenant ! maintenant ! ». Je ne sais pas de quoi il parle, mais il a l’air pressé.','Chaque fois que je croise l’horloge du manoir, j’ai l’impression qu’elle me répond.'],
-      2:['Le chat s’est tu d’un coup. Je n’ai plus que des chiffres chuchotés.',']},
+      0:['Le chat écrit « tic-tac » toutes les secondes. Je tape comme un robot, c’est atroce.','Les secondes, c’est le pire : elles passent, et rien ne se passe.'],
+      1:['Le chat ne parle plus que de « maintenant ». Maintenant, maintenant…','Moi, je pense que ce qui ouvre le studio ne se lit pas dans un papier. Ça se lit à l’instant.'],
+      2:['Le chat est passé de « maintenant » à « aujourd’hui ». Aujourd’hui, aujourd’hui…','Même les messages qui défilent portent un jour. Je n’arrive plus à ne pas le voir.']},
     'kataneo21':{
-      0:['Ces portraits me regardent, je n’exagère pas. J’entends une voix compter derrière les murs, jusqu’à 60, puis recommencer.','Je me sens ridicule d’avoir peur d’un tableau. Mais ils sont dix, ces cadres, et un seul est vide.'],
-      1:['Clac… clac… clac, puis un silence. Tu l’entends, ce bruit de relais ?','],
-      2:['Le coffre sous la vitrine vibre comme un cœur. Personne n’y a touché.','Ce qui l’ouvre n’est pas là. Je n’en sait pas plus.']},
+      0:['Ces portraits me regardent, je n’exagère pas. Et ce bruit de secondes derrière les murs… j’en ai la nausée.','Quelqu’un a arraché la trotteuse des pendules, tu as vu ? Ça n’a rien arrangé : on les entend quand même.'],
+      1:['Plus j’observe les cadres, plus je trouve que ce manoir ne retient que ce qui arrive ce soir.','Les portraits, les cadrans, tous au même moment. Ça donne le tournis.'],
+      2:['Le coffre sous la vitrine vibre comme un cœur. Personne n’y a touché, et personne n’a la clé non plus.','Aujourd’hui, tout se ferme. Aujourd’hui, tout s’ouvre. J’en perds mon calme.']},
     'eltise':{
-      0:['Je ne suis pas peureuse d’habitude, mais j’entends des pas au-dessus de nous alors que l’étage est condamné. J’ai le ventre noué.','Et ce dixième cadre, vide, qui attend quelqu’un qui n’est pas encore arrivé.'],
-      1:['Les pas se sont arrêtés. J’entends maintenant des pages qu’on tourne, du côté de la bibliothèque.','Je me sens comme dans une salle d’attente : tout le monde regarde la pendule.'],
-      2:['Un bourdonnement : le courant. Puis un petit clic sec, comme un fusible qu’on remonte.','Je crois que quelque chose a été rangé en lieu sûr mais pas ici.']},
+      0:['Je n’ose plus regarder les pendules. Elles n’ont plus de trotteuse, et pourtant elles battent.','Ce qui me glace, c’est qu’elles sont toujours justes. Toujours.'],
+      1:['Les pendules du hall et d’ici sont d’accord entre elles, à la minute près.','Une pendule qui ne ment pas, c’est la chose la plus inquiétante qu’on puisse trouver ici.'],
+      2:['Les cadrans se sont mis à afficher autre chose que l’heure. Une petite fenêtre, avec deux nombres.','Aujourd’hui, rien d’autre. Ne me demande pas pourquoi ça m’angoisse autant.']},
     'S4tha':{
-      0:['Je me sens épiée entre ces étagères. J’entends des pages tourner, un registre qu’on feuillette tout seul.','Il y a ici des choses qui n’ont rien à faire dans une bibliothèque.'],
-      1:['J’entends un tic-tac, mais ce n’est pas une horloge : quelqu’un écrit des heures à la main, ligne après ligne.','Ce manoir ne retient que ce qu’il vient de vivre. Le reste, il l’oublie.'],
-      2:['Le studio a pris vie : j’entends des haut-parleurs qui toussent. Je n’aime vraiment pas ça.','Là-bas, tout parle d’aujourd’hui. Pas d’hier.']},
+      0:['Entre les livres, j’entends les secondes tomber une à une, comme dans un sablier.','On a retiré les trotteuses ce soir. Plus on les retire, plus je les entends.'],
+      1:['Dans le journal, on a retiré les trotteuses « à la demande des invités ». Les invités, c’est nous.','Les heures passées, le manoir les oublie. Seule compte celle de maintenant.'],
+      2:['Le studio a repris vie : les haut-parleurs toussent. Ce n’est plus l’heure qui m’inquiète.','Là-bas, tout parle d’aujourd’hui. Pas d’hier, pas de demain.']},
     'unfamiliary':{
-      0:['Honnêtement, ça me met mal à l’aise, et c’est ce qui m’énerve. Ce que j’entends surtout, c’est ce que je n’entends pas : onze secondes de rien dans le direct.','Le blanc finit toujours au moment où quelqu’un regarde l’heure.'],
-      1:['Je me sens mieux depuis que je pense à un montage. Mais un montage a un horodatage, et ici il bouge tout seul.','Si on arrive trop tard, le panneau se moque de nous.'],
-      2:['Le direct a repris dans le studio, et j’y entends ma propre voix, en retard de quelques secondes. Brr.','Le sous-sol compte les jours, je crois. Les vrais.']},
+      0:['Les secondes, honnêtement, c’est insupportable. Je préférerais le silence, même un silence de onze secondes.','Ne regarde pas les pendules trop longtemps : elles te donnent l’heure dont tu n’as pas envie.'],
+      1:['Je me sens mieux depuis que je pense à un montage. Mais ici, l’horloge, elle, est bien réelle.','La porte du studio se moque des heures passées. Va voir la bonne.'],
+      2:['Le direct a repris dans le studio, et j’y entends ma propre voix, en retard de quelques secondes. Brr.','Le sous-sol demande lui aussi quelque chose qui change. Mais une seule fois par jour.']},
     'Drunkman':{
-      2:['Ouf, tu es entré. Je me sens dans un four : ces écrans éteints qui bourdonnent, ce grésillement de régie… j’ai bu un verre de trop pour tenir.','J’ai entendu les relais s’enchaîner : galerie, bibliothèque, puis ici. Après ça, plus rien, juste une petite clé qui tinte quelque part.']},
+      2:['Ouf, tu es entré. Je me sens dans un four : ces écrans éteints, ces secondes sans trotteuse… j’ai bu un verre de trop pour tenir.','Une petite clé tinte quelque part sur la régie. Prends-la avant que je la perde. Et non, je ne ris pas : c’est nerveux.']},
     'lapetitebeaute':{
-      2:['J’ai failli partir en courant. Sur le prompteur, des mots se sont écrits tout seuls, et une voix répète une seule phrase dans les haut-parleurs.','Elle dit « je suis déjà en bas ». Ce n’est pas la voix de celui qu’on croit.']}
+      2:['J’ai failli partir en courant. Sur le prompteur, des mots s’écrivent tout seuls, et une voix répète une seule phrase.','Elle dit « je suis déjà en bas ». Ce n’est pas la voix de celui qu’on croit. Et aujourd’hui, elle est plus nette que jamais.']}
   };
   const again={
-    'tom_hagane':'Les tics  ne s’arrêtent pas. Je n’arrive plus à les écouter en paix. Je ne veut plus entendre les secondes',
-    'simon_shinji':'Le compteur de spectateurs grimpe pendant que tu avances. Moi, j’essaie juste de ne pas trembler.',
-    'kataneo21':'Presque toutes les lumières sont allumées. Je sens que la salle d’en bas va nous réserver quelque chose.',
+    'tom_hagane':'Je ne veux plus entendre les secondes. Même en cachette, je les compte.',
+    'simon_shinji':'Le compteur grimpe pendant que tu avances. Moi, j’essaie surtout de ne pas rire… trembler. Trembler.',
+    'kataneo21':'Presque toutes les lumières sont allumées. La salle d’en bas va nous réserver quelque chose.',
     'eltise':'Le dixième cadre attend un nom. Tu le connais déjà, je crois… mais ce n’est pas à moi de le dire.',
-    'S4tha':'Les murmures continuent. Tout pointe vers la pendule sans trotteuse.',
-    'unfamiliary':'De longueq minutes de blanc, des heures sans bruit. Je préfère ne plus y penser.',
+    'S4tha':'Les murmures continuent. Tout pointe vers l’escalier de service.',
+    'unfamiliary':'Je préfère ne plus y penser. Tu me regardes comme si je savais quelque chose.',
     'Drunkman':'Je ne sais pas ce que je préfère : ne pas bouger, ou te regarder avancer.',
-    'lapetitebeaute':'La voix dans les haut-parleurs répète toujours la même phrase. Je n’ose plus l’écouter.'
+    'lapetitebeaute':'La voix répète toujours la même phrase. Je n’ose plus l’écouter.'
   };
   const data=stories[id];
   if(data){
@@ -551,9 +733,10 @@ function finaleSequence(){
   flags.final=true;ui();save();
   queueEvent('L’escalier de service','Des pas, des rires retenus, des lumières de téléphone. Un par un, ils descendent : tom_hagane, simon_shinji, kataneo21, eltise, S4tha, unfamiliary, Drunkman, lapetitebeaute… et Unname ferme la marche.');
   queueEvent('Unname',['ET VOILÀ NOTRE DIXIÈME INVITÉ !','Prank réussie, '+heroName+' ! La soirée IRL était la couverture : le véritable stream, c’était toi. Chaque pièce, chaque verrou, chaque fantôme était mis en scène — pour ton entrée dans la bande. Félicitations !']);
+  queueEvent('Unname',['Un dernier accessoire, tenez-vous bien…','Unname déchire sa cape : dessous, un costume de requin bleu à capuche. « Baby Unnameshark, doo doo doo doo ! » Toute la bande reprend le refrain en chœur, et le chat du direct explose.']);
   queueEvent('tom_hagane','Le retour casque, c’était moi. Désolé pour les frissons — et bravo pour le dossier !');
   queueEvent('lapetitebeaute','« Merci d’être resté jusqu’à la fin »… c’était pour toi. Bienvenue parmi nous !');
-  queueEvent('Unname',['Alors, on conclut ?','Bienvenue sur le stream live d’Unname, '+heroName+'. Dix invités, un manoir, et une communauté qui t’attendait depuis le début.'],()=>startEnding());
+  queueEvent('Unnameshark',['Prends le temps de saluer tout le monde : Unnameshark, la bande, le Régisseur.','Quand chacun aura parlé, le chrono caché se lancera — et le mot de la fin apparaîtra tout seul. Et ne cherche pas la porte : elle est restée verrouillée.']);
   popEvent();
 }
 
@@ -565,15 +748,15 @@ function inspect(id){
   }
   const nd=new Date(),ago=m=>hm2(new Date(nd.getTime()-m*60000));
   let t={
-    ticket:['Ticket de régie','Papier encore tiède, tamponné « '+dateFr(nd)+' ». Le tampon dateur est humide, comme posé à l’instant. Une consigne, soulignée trois fois : « NE PAS RELANCER LE DIRECT APRÈS LA COUPURE ». Au dos, une autre main a écrit : « Le verrou du bas se souvient du jour. »'],
-    photo:['Photographie déchirée','La photo a été prise dans le hall, devant le tapis d’accueil. Neuf personnes sont identifiables, mais dix ombres tombent sur le mur. La silhouette supplémentaire se tient derrière Unname… et regarde l’objectif. Au dos : « Première prise — ne jamais diffuser la version complète ».'],
-    tape:['Cassette TEST 0','La bande commence par dix claquements secs, puis une voix compte de dix à un. Au dernier chiffre, le souffle continue alors que la bande semble arrêtée. Une seconde voix murmure : « Le dixième n’est pas dans la pièce. Il est dans le direct. » Sur l’étiquette, au feutre : « TEST 0 — daté du jour même ».'],
-    symbol:['Symbole inversé','Trois cercles sont reliés par une ligne gravée dans le bois : les trois relais — galerie, bibliothèque, studio. Un quatrième trait revient vers le premier cercle, presque effacé : le retour caméra. Une annotation précise : « Ne jamais fermer la boucle avant le dernier relais ».'],
-    plan:['Plan des conduits','Le plan révèle un réseau qui ne figure sur aucun document officiel : les câbles partent de la galerie, traversent la bibliothèque, aboutissent au studio… puis une conduite redescend vers une pièce non répertoriée sous le bâtiment. Dans la marge : « Le local technique ne s’ouvre qu’après rétablissement du circuit. »'],
-    log:['Journal de maintenance',ago(9)+' — coupure générale demandée par la régie. '+ago(7)+' — relais de galerie rétabli. '+ago(5)+' — relais de bibliothèque rétabli. '+ago(4)+' — relais du studio rétabli sans ordre signé. En marge, au crayon : « La synchro du studio ne garde aucune heure passée : elle se cale sur l’instant. »'],
-    voice:['Transcription audio','Fichier capturé à '+hm2(launchD)+', au moment exact du lancement automatique. La voix ressemble à celle d’Unname, ralentie et fatiguée : « Si vous m’entendez, ne descendez pas. Je suis déjà en bas. Ne coupez pas l’image. » Avant la première phrase, trois coups frappés depuis l’intérieur du micro. Après la dernière, une respiration répond.']
+    ticket:['Ticket de régie','Papier encore tiède, imprimé en rouge : « VALABLE AUJOURD’HUI UNIQUEMENT ». À la place du tampon, un cercle vide. Au dos, une autre main a écrit : « Le verrou du bas se souvient d’aujourd’hui. »'],
+    photo:['Photographie déchirée','Prise dans le hall, devant la pendule d’accueil. Neuf personnes sont identifiables, mais dix ombres tombent sur le mur. La silhouette en plus se tient derrière Unname… et regarde l’objectif. Tout le monde sourit, sauf elle. Au dos : « Première prise — ne jamais diffuser la version complète ».'],
+    tape:['Cassette TEST 0','Une voix compte les secondes à voix basse, de un à soixante, puis recommence. Au troisième tour, une autre voix craque : « Arrêtez ça, je n’en peux plus. Coupez les trotteuses. » Sur l’étiquette, au feutre : « TEST 0 — enregistré aujourd’hui ».'],
+    symbol:['Schéma des pendules','Un schéma fait à la main : cinq pendules reliées par un fil, dans le hall, la galerie, la bibliothèque, le studio et le sous-sol. En haut, au crayon : « Toutes à la même heure. Plus de trotteuse : les invités ne supportent plus les secondes. » À la place de la trotteuse, un petit cercle vide et une flèche : « le jour viendra après ».'],
+    plan:['Plan du manoir','Le plan marque l’emplacement de chaque pendule, puis un escalier de service sous le studio, noté « régie de secours ». Dans la marge : « Le local technique ne s’ouvre qu’une fois le courant rétabli et le fusible remis. »'],
+    log:['Journal de maintenance',ago(9)+' — coupure générale demandée par la régie. '+ago(7)+' — trotteuses retirées à la demande des invités : le bruit des secondes est insupportable. '+ago(4)+' — pendules resynchronisées. En marge, au crayon : « Le verrou du studio ne garde aucune heure passée : il se cale sur l’instant. »'],
+    voice:['Transcription audio','Fichier capturé à '+hm2(launchD)+', au moment exact du lancement automatique. La voix ressemble à celle d’Unname, ralentie et fatiguée : « Si vous m’entendez, ne descendez pas. Je suis déjà en bas. Ne coupez pas l’image. » Avant la première phrase, on entend les secondes tomber, une à une.']
   }[id];
-  clues.add(id);ui();save();milestoneEvents();
+  clues.add(id);chime();ui();save();milestoneEvents();
   say(t[0],t[1],()=>{if(clues.has('symbol')&&clues.has('plan')&&clues.has('log')&&!flags.studio){say('Journal mis à jour','Le circuit, les conduits, le journal : tout se tient. La porte du studio attend maintenant quatre chiffres.')}else popEvent()});
 }
 
@@ -584,9 +767,10 @@ function openChest(){
 }
 
 function go(d){
+  if(flags.endLock&&!flags.ended&&d[0]!=='cellar'){say('Porte verrouillée',['La porte de l’escalier s’est verrouillée derrière toi au moment où le verrou a cédé.','Plus moyen de remonter : le direct doit se terminer. Laisse le chrono caché filer jusqu’au mot de la fin.']);return}
   const enter=()=>{
-    room=d[0];pl.x=d[3]*S+16;pl.y=d[4]*S+16;ui();save();resetKeys();
-    if(room==='studio'&&!flags.studioSeen){flags.studioSeen=true;say('Voix dans les haut-parleurs',['…Unname ?','Tu as rétabli le circuit. Pourtant, le studio était censé être hors tension.','Le direct a repris à '+LT()+'. Quelqu’un attend derrière la caméra.'],()=>{milestoneEvents();popEvent()});}
+    room=d[0];pl.x=d[3]*S+16;pl.y=d[4]*S+16;doorLock=Date.now()+700;ui();save();resetKeys();
+    if(room==='studio'&&!flags.studioSeen){flags.studioSeen=true;say('Voix dans les haut-parleurs',['…Unname ?','Tu as rétabli le circuit. Pourtant, le studio était censé être hors tension.','Le direct a repris à '+LT()+'. Quelqu’un attend derrière la caméra.','Regarde les cadrans : ils ne comptent plus les secondes. Ils comptent les jours.'],()=>{milestoneEvents();popEvent()});}
     else{milestoneEvents();popEvent()}
   };
   if(d[0]==='studio'){
@@ -601,12 +785,22 @@ function go(d){
   }
   if(d[0]==='cellar'){
     if(clues.size<7||!items.has('fusible')){
-      say('Verrou du sous-sol','Le panneau du verrou inférieur est mort. Il lui manque encore quelque chose.');return;
+      const miss=[];
+      if(!items.has('fusible'))miss.push('le fusible de relais (dans le coffre de la vitrine, en galerie)');
+      const ev=Object.keys(evidence).filter(k=>!clues.has(k)).map(k=>evidence[k]);
+      if(ev.length)miss.push('le dossier complet — il manque : '+ev.join(', '));
+      say('Verrou du sous-sol','Le panneau du verrou inférieur reste mort. Il attend encore : '+miss.join(' ; ')+'.');return;
     }
-    askCode('VERROU INFÉRIEUR','Quatre chiffres.',okDate,enter,()=>say('Verrou inférieur','Code incorrect.'));
+    askCode('VERROU INFÉRIEUR','Quatre chiffres.',okDate,()=>{gong();enter();armEndTimer()},()=>say('Verrou inférieur','Code incorrect.'));
     return;
   }
   enter();
+}
+function armEndTimer(){flags.endLock=true;save();
+  queueEvent('L’escalier de service','Un déclic lourd résonne dans le dos : la porte vient de se verrouiller derrière toi.\nIci, plus moyen de remonter. Parle à ceux qui attendent en bas — le direct, lui, ne s’interrompt pas.');
+}
+function armChrono(){flags.chrono=true;endAt=Date.now()+60000;save();gong();
+  queueEvent('Unnameshark',['Tout le monde a parlé ! Le chrono caché se lance : une dernière minute de direct.','Laisse-la filer jusqu’au bout — le mot de la fin apparaîtra tout seul. Et la porte, elle, restera verrouillée.']);
 }
 
 let pending=[];
@@ -614,8 +808,8 @@ function queueEvent(w,lines){pending.push({w,lines})}
 function popEvent(){if(!dialog&&pending.length>0){let ev=pending.shift();say(ev.w,ev.lines,ev.cb)}}
 function milestoneEvents(){
   if(clues.size>=2&&!seen.has('m2')){seen.add('m2');queueEvent('Le manoir',['Un bruit de course à l’étage, puis un silence trop parfait. Quelqu’un semblait retenir un rire.\nSûrement les vieilles poutres. Les vieilles poutres rigolent beaucoup, dans ce manoir.']);}
-  if(clues.size>=4&&!seen.has('m4')){seen.add('m4');queueEvent('Direct fantôme',['Un voyant rouge s’allume dans le coin de ta vision et ne s’éteint plus.\nSPECTATEURS : 2','Un stream, dans un manoir qui ne diffuse rien. La maison te regarde jouer les détectives — et quelqu’un, quelque part, apprécie.']);}
-  if(clues.size>=6&&!seen.has('m6')){seen.add('m6');queueEvent('Direct fantôme',['SPECTATEURS : 5','Les invités sourient quand tu ne les regardes pas. Chaque pièce du dossier pointe vers le sous-sol… et vers celui qui l’habite.']);}
+  if(clues.size>=4&&!seen.has('m4')){seen.add('m4');queueEvent('Direct fantôme',['Un voyant rouge s’allume dans le coin de ta vision et ne s’éteint plus.\nSPECTATEURS : '+viewersNow(),'Un stream, dans un manoir qui ne diffuse rien. La maison te regarde jouer les détectives — et quelqu’un, quelque part, apprécie.']);}
+  if(clues.size>=6&&!seen.has('m6')){seen.add('m6');queueEvent('Direct fantôme',['SPECTATEURS : '+viewersNow(),'Les invités sourient quand tu ne les regardes pas. Chaque pendule du manoir indique la même heure… et bientôt, le même jour.']);}
   if(room==='cellar'&&!seen.has('mCellar')){seen.add('mCellar');queueEvent('Direct fantôme',['SPECTATEURS : 10','Une porte claque quelque part au-dessus. Des pas se rapprochent de l’escalier de service… mais ça, c’est pour plus tard. D’abord, le dossier.']);}
   save();
 }
@@ -632,12 +826,12 @@ function askCode(title,hint,code,onOk,onFail){
   document.getElementById('kpErr').textContent='';
   kpDisp();document.getElementById('keypad').classList.remove('hide');resetKeys();
 }
-function kpPress(n){if(!kpState)return;if(kpState.digits.length<4)kpState.digits+=n;document.getElementById('kpErr').textContent='';kpDisp()}
+function kpPress(n){if(!kpState)return;beep();if(kpState.digits.length<4)kpState.digits+=n;document.getElementById('kpErr').textContent='';kpDisp()}
 function kpOk(){
   if(!kpState||kpState.digits.length<4)return;
   const st=kpState;document.getElementById('keypad').classList.add('hide');kpState=null;resetKeys();
   if(typeof st.code==='function'?st.code(st.digits):st.digits===st.code){if(st.onOk)st.onOk()}
-  else if(st.onFail)st.onFail();
+  else{buzz();if(st.onFail)st.onFail()}
 }
 function kpCancel(){document.getElementById('keypad').classList.add('hide');kpState=null;resetKeys()}
 document.querySelectorAll('#kpGrid button').forEach(b=>{
@@ -646,25 +840,30 @@ document.querySelectorAll('#kpGrid button').forEach(b=>{
 document.getElementById('kpX').onclick=kpCancel;
 
 function startEnding(){
-  flags.final=true;ui();save();ready=false;resetKeys();pending=[];
+  flags.final=true;flags.ended=true;endAt=0;ui();save();ready=false;resetKeys();pending=[];dialog=null;
+  document.getElementById('dlg').classList.remove('show');
+  document.getElementById('endMerci').textContent='Bienvenue dans la communauté d’Unname, '+heroName+' !';
   document.getElementById('liveName').textContent='Félicitations '+heroName+' — tu étais le dixième invité !';
-  document.getElementById('endRecap').innerHTML='Registre signé : <b>'+heroName+'</b><br>Preuves réunies : <b>'+clues.size+' / 7</b><br>Fusible remis, verrou ouvert… et prank révélé par Unname et les neuf autres invités.';
-  document.getElementById('endS1').classList.remove('hide');
+  document.getElementById('endRecap').innerHTML='Registre signé : <b>'+heroName+'</b><br>Preuves réunies : <b>'+clues.size+' / 7</b><br>Fusible remis, verrou ouvert, chrono caché écoulé… et prank révélé par Unnameshark et les neuf autres invités.';
+  document.getElementById('endS0').classList.remove('hide');
+  document.getElementById('endS1').classList.add('hide');
   document.getElementById('endS2').classList.add('hide');
   document.getElementById('endOv').classList.remove('hide');
 }
 function resetGame(){
   try{localStorage.removeItem('unnameArchive2')}catch(e){}
   clues.clear();seen.clear();items.clear();pending=[];
-  Object.assign(flags,{studio:false,final:false,studioSeen:false,chestOpen:false});
+  Object.assign(flags,{studio:false,final:false,studioSeen:false,chestOpen:false,endLock:false,ended:false,chrono:false});
+  endAt=0;doorLock=0;dialog=null;finaleTalked.clear();
   room='hall';pl.x=12*S+16;pl.y=12*S+16;dialog=null;kpState=null;heroName='';ready=false;
   ['dlg'].forEach(i=>document.getElementById(i).classList.remove('show'));
   document.getElementById('keypad').classList.add('hide');
   document.getElementById('endOv').classList.add('hide');
   document.getElementById('nameOv').classList.remove('hide');
   const pn=document.getElementById('pname');pn.value='';
-  resetKeys();ui();pn.focus();
+  chat=[];nextChat=0;resetKeys();ui();pn.focus();
 }
+document.getElementById('toLive').onclick=()=>{document.getElementById('endS0').classList.add('hide');document.getElementById('endS1').classList.remove('hide')};
 document.getElementById('toEnd').onclick=()=>{document.getElementById('endS1').classList.add('hide');document.getElementById('endS2').classList.remove('hide')};
 document.getElementById('replay').onclick=resetGame;
 
@@ -675,19 +874,23 @@ function ui(){
   document.getElementById('clues').innerHTML=clues.size?[...clues].map(k=>'<li>'+evidence[k]+'</li>').join(''):'<li>Aucun indice trouvé.</li>';
   const inv=[...items].map(k=>itemsDb[k]).join(', ');
   document.getElementById('inventory').textContent=inv||'Vide';
-  const step=flags.final?'Chapitre terminé. Le direct continue… et le dixième cadre porte ton nom.':
+  const miss=7-clues.size;
+  const step=flags.ended?'Chapitre terminé. Merci d’avoir joué !':
+    flags.final?(flags.chrono?'Le chrono caché tourne : laisse le direct se terminer.':'Parle à tout le monde dans la salle — le chrono caché se lancera quand chacun aura parlé.'):
+    flags.endLock?'La porte s’est verrouillée derrière toi. Va voir le Régisseur… puis laisse le direct se terminer.':
     !seen.has('Unname')||(!clues.has('ticket')&&!clues.has('photo'))?'Observe le hall. Écoute ceux qui s’y trouvent.':
     (!clues.has('tape')||!clues.has('symbol'))?'La galerie a gardé des traces. Écoute ce qu’on y dit.':
     (!clues.has('plan')||!clues.has('log'))?'La bibliothèque est pleine d’archives.':
-    !flags.studio?'Une porte réclame quelque chose de précis. Les chiffres ne viennent pas de nulle part.':
+    !flags.studio?'La porte du studio attend quatre chiffres. Qu’est-ce qui change à chaque minute, ici ?':
     (!clues.has('voice')||!items.has('key_vitrine'))?'Le studio cache des objets. Fouille.':
     !flags.chestOpen?'Quelque chose, ailleurs dans le manoir, attend une clé.':
-    'L’escalier de service est verrouillé. Le bas de la maison attend.';
+    miss>0?'Le verrou du bas exige le dossier complet : encore '+miss+' indice'+(miss>1?'s':'')+' à trouver dans le manoir.':
+    'Le verrou du bas attend quatre chiffres. Qu’est-ce qui ne change qu’une fois par jour ?';
   document.getElementById('goal').textContent=step;
 }
 
-function save(){try{localStorage.setItem('unnameArchive2',JSON.stringify({room,p:{x:pl.x,y:pl.y},clues:[...clues],items:[...items],flags,seen:[...seen],name:heroName}))}catch(e){}}
-function load(){try{let d=JSON.parse(localStorage.getItem('unnameArchive2'));if(d){room=d.room||'hall';pl.x=d.p.x;pl.y=d.p.y;(d.clues||[]).forEach(k=>clues.add(k));(d.items||[]).forEach(k=>items.add(k));Object.assign(flags,d.flags||{});(d.seen||[]).forEach(k=>seen.add(k));heroName=d.name||'';}}catch(e){}ui()}
+function save(){try{localStorage.setItem('unnameArchive2',JSON.stringify({room,p:{x:pl.x,y:pl.y},clues:[...clues],items:[...items],flags,seen:[...seen],talked:[...finaleTalked],name:heroName}))}catch(e){}}
+function load(){try{let d=JSON.parse(localStorage.getItem('unnameArchive2'));if(d){room=d.room||'hall';pl.x=d.p.x;pl.y=d.p.y;(d.clues||[]).forEach(k=>clues.add(k));(d.items||[]).forEach(k=>items.add(k));Object.assign(flags,d.flags||{});(d.seen||[]).forEach(k=>seen.add(k));(d.talked||[]).forEach(k=>finaleTalked.add(k));heroName=d.name||'';if(flags.chrono&&!flags.ended)endAt=Date.now()+60000;}}catch(e){}ui()}
 
 function move(dx,dy){
   let nx=pl.x+dx,ny=pl.y+dy;
@@ -720,8 +923,8 @@ function loop(t){
     if(pY&&!padPrevY&&!dialog)showRecap();
     if(pStart&&!padPrevStart&&!dialog)say('Journal d’enquête',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pièces.');
     if(!document.getElementById('endOv').classList.contains('hide')&&pA0&&!padPrevA){
-      const s2=document.getElementById('endS2');
-      (s2.classList.contains('hide')?document.getElementById('toEnd'):document.getElementById('replay')).click();
+      const bid=!document.getElementById('endS0').classList.contains('hide')?'toLive':!document.getElementById('endS1').classList.contains('hide')?'toEnd':'replay';
+      document.getElementById(bid).click();
     }
   }
   padPrevA=pA0||pB;padPrevB=pB;padPrevY=pY;padPrevStart=pStart;
@@ -735,12 +938,24 @@ function loop(t){
     if(dx||dy)move(dx*2.3*dt/16,dy*2.3*dt/16);
     movingNow=!!(dx||dy);
   }else movingNow=false;
+  const sec=Math.floor(Date.now()/1000);
+  if(sec!==lastSec){lastSec=sec;if(AC&&ready&&!document.hidden&&!muted&&!flags.final)tickSnd(sec)}
+  updateChat();
+  if(flags.chrono&&!flags.ended&&Date.now()>=endAt){gong();startEnding()}
   draw();
   requestAnimationFrame(loop);
 }
 
 window.addEventListener('keydown',e=>{
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+  if(kpState){
+    if(/^[0-9]$/.test(e.key)){e.preventDefault();kpPress(e.key);return}
+    if(e.key==='Backspace'){e.preventDefault();kpState.digits=kpState.digits.slice(0,-1);kpDisp();return}
+    if(e.key==='Delete'||e.key==='c'||e.key==='C'){kpState.digits='';kpDisp();return}
+    if(e.key==='Enter'){e.preventDefault();kpOk();return}
+    if(e.key==='Escape'){kpCancel();return}
+    return;
+  }
   if(e.key==='Escape'&&dialog){dialog=null;resetKeys();document.getElementById('dlg').classList.remove('show');return}
   if(['e','E','Enter',' '].includes(e.key)&&!K[e.key])act();
   if((e.key==='j'||e.key==='J')&&ready&&!dialog)say('Journal d’enquête',[...clues].map(k=>evidence[k]).join('\n')||'Ton journal est vide. Fouille les pièces, puis reviens : les souvenirs des invités évoluent.');
@@ -784,9 +999,14 @@ function startGame(){
   document.getElementById('pname').blur();
   document.getElementById('nameOv').classList.add('hide');
   ready=true;save();scrollToGame();
-  say('Unname',['Bienvenue à Valombre, '+heroName+'. Rien ne se passe comme prévu ce soir : un direct fantôme, des portes qui se verrouillent…','Je ne sais pas ce qui se passe. La chaine est indisponible, le dernier invité va arriver.'],()=>{seen.add('intro');save()});
+  say('Unname',['Bienvenue à Valombre, '+heroName+'. Rien ne se passe comme prévu ce soir : un direct fantôme, des portes qui se verrouillent…','Je ne sais pas ce qui se passe. La chaîne est indisponible, le dernier invité va arriver.'],()=>{seen.add('intro');save()});
 }
 document.getElementById('startBtn').onclick=startGame;
+window.addEventListener('pointerdown',()=>{if(!muted)audio()},{once:true});
+window.addEventListener('keydown',()=>{if(!muted)audio()},{once:true});
+document.getElementById('snd').onclick=()=>setMute(!muted);
+tapBtn('tS',()=>setMute(!muted));
+setMute(muted);
 document.getElementById('pname').addEventListener('keydown',e=>{if(e.key==='Enter')startGame()});
 
 function tick(){const d=new Date(),g=i=>document.getElementById(i);
